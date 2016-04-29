@@ -1,3 +1,4 @@
+
 apply plugin: 'com.android.application'
 
 android {
@@ -17,17 +18,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets {
-        main {
-            java.srcDirs = ['src/main/java', 'src/main/java/com/example/troytaylor/dailyexpense/UI', 'src/main/java/com/example/troytaylor/dailyexpense/Services', 'src/main/java/com/example/troytaylor/dailyexpense/Entities', 'src/main/java/com/example/troytaylor/dailyexpense/entities', 'src/main/java/com/example/troytaylor/dailyexpense/services/repository', 'src/main/java/com/example/troytaylor/dailyexpense/services', 'src/main/java/com/example/troytaylor/dailyexpense/ui']
+    sourceSets{
+        main{
+            java.srcDirs = ['src/main/java']
         }
     }
 }
 
 dependencies {
-    compile project(':xuni.core')
-    compile project(':xuni.calendar')
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
     testCompile 'junit:junit:4.12'
+
     compile 'com.android.support:appcompat-v7:23.3.0'
+
+}
+
+
+task testClasses{
+
 }

@@ -17,7 +17,26 @@ public class Expense {
         this.amount = amount;
     }
 
-    //TODO: create accessor/modifier methods
+    //TODO: refactor modifier methods to return booleans
 
+    public void setDate(Calendar cal){
+        date = cal;
+    }
+    public Calendar getDate(){
+        return this.date;
+    }
 
+    public void setDescription(String desc){
+        this.description = desc;
+    }
+    public String getDescription(){
+        return this.description;
+    }
+
+    public void setAmount(double amnt){
+        this.amount = amnt;
+    }
+    public double getAmount(){
+        return this.amount;
+    }
 }

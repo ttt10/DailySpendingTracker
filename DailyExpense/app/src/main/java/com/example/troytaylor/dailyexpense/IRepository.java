@@ -11,14 +11,16 @@ public interface IRepository {
     /**
      * Adds an expense object to the repository
      * @param expense: new com.example.troytaylor.dailyexpense.Expense object to be added
+     * @return: returns true if expense was added
      */
-    void addExpense(Expense expense);
+    boolean addExpense(Expense expense);
 
     /**
      *  Removes an com.example.troytaylor.dailyexpense.Expense object from the repository
      *  @param expense: the expense object that will be removed
+     *  @return: returns true if expense was removed
      */
-    void removeExpense(Expense expense);
+    boolean removeExpense(Expense expense);
 
     /**
      *  Gets a list of Expenses for a specified day
