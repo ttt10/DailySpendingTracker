@@ -1,7 +1,10 @@
 package com.example.troytaylor.dailyexpense;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,9 +19,6 @@ public class TestRepository implements IRepository {
         /* generate some dates, descriptions and amounts */
 
         Calendar today = Calendar.getInstance();
-        //Calendar start = today;
-        //start.set(Calendar.MONTH, 1);
-        //start.set(Calendar.DAY_OF_MONTH, 12);
 
         /* add expenses */
         // today's expenses
@@ -26,21 +26,34 @@ public class TestRepository implements IRepository {
         AllExpenses.add(new Expense(today, "Noodlehead", 9.63));
         AllExpenses.add(new Expense(today, "CVS", 23.11));
 
-        /*
-        //random expenses
+        //random expenses from January 12
         int i = 0;
         int j = 0;
         String[] desc = {"Shoes", "Groceries","Clothes","Dining","Bill(s)","Misc."};
         double[] amount = {5.00,125.45,44.70,14.28,63.03,35.00,27.80,14.39};
 
-        Calendar current = start;
+        Calendar current = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        Date start = null;
+
+        try{
+            start = sdf.parse("2016.01.12");
+            current.setTime(start);
+        }catch (ParseException pe){
+            System.out.println(pe.toString());
+        }
+
         while (current.compareTo(today) < 0){
-            AllExpenses.add(new Expense(current, desc[i%6], amount[j%8]));
+            Date d = current.getTime();
+            Calendar c = Calendar.getInstance();
+            c.setTime(d);
+            Expense e = new Expense(c, desc[i%6], amount[j%8]);
+            AllExpenses.add(e);
+            //System.out.println(current.toString());
             i++;
             j++;
-            current.add(Calendar.DATE, 1);
+            current.add(Calendar.DATE,1);
         }
-        */
     }
 
     public boolean addExpense(Expense expense){
@@ -89,7 +102,6 @@ public class TestRepository implements IRepository {
     }
 
     public List<Expense> getExpenses(Calendar day){
-        //TODO: search and return all expenses on day
         List<Expense> returnList = new ArrayList<>();
         int s = AllExpenses.size();
         Calendar current;
@@ -106,21 +118,46 @@ public class TestRepository implements IRepository {
                 }
             }
         }
-
         return returnList;
     }
 
     public double getTotalDayAmount(Calendar day){
         //TODO: return sum of all expenses on day
         double dayAmount = 0.0;
+        int s = AllExpenses.size();
+        Calendar current;
+        Expense expense;
+        for(int i=0; i<s; i++){
+            expense = AllExpenses.get(i);
+            current = expense.getDate();
 
+            if(day.get(Calendar.YEAR) == current.get(Calendar.YEAR)){
+                if(day.get(Calendar.MONTH) == current.get(Calendar.MONTH)){
+                    if(day.get(Calendar.DAY_OF_MONTH) == current.get(Calendar.DAY_OF_MONTH)){
+                        dayAmount += expense.getAmount();
+                    }
+                }
+            }
+        }
         return dayAmount;
     }
 
     public double getTotalMonthAmount(Calendar month){
         //TODO: return sum of all expenses in month
         double monthAmount = 0.0;
+        int m = month.get(Calendar.MONTH);
+        int s = AllExpenses.size();
+        int expMonth = 0;
 
+        for(int i=0; i<s; i++){
+            Expense exp = AllExpenses.get(i);
+            Calendar date = exp.getDate();
+            expMonth = date.get(Calendar.MONTH);
+            if(expMonth == m){
+                monthAmount += exp.getAmount();
+                //print out values added
+            }
+        }
         return monthAmount;
     }
 

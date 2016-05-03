@@ -35,12 +35,16 @@ public class TestRepositoryTest {
 
     @Test
     public void getTotalDayAmount() throws Exception {
+        TestRepository repo = new TestRepository();
 
+        assertEquals(43.66,repo.getTotalDayAmount(Calendar.getInstance()), .01);
     }
 
     @Test
     public void getTotalMonthAmount() throws Exception {
+        TestRepository repo = new TestRepository();
 
+        assertEquals(repo.getTotalMonthAmount(Calendar.getInstance()) , repo.getTotalMonthAmount(Calendar.getInstance()), .01);
     }
 
 }
