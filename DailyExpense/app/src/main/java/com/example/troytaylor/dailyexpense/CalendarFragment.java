@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.StringTokenizer;
 
 /**
  * Created by troytaylor on 4/28/16.
@@ -28,13 +29,18 @@ public class CalendarFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
-        //inflate the layout
+
         context = getActivity();
-        com.grapecity.xuni.core.LicenseManager.KEY = License.KEY;
-        calendar = (XuniCalendar) getActivity().findViewById(R.id.calendar);
-
         repository = MyApp.getServicesComponent().getRepository();
+        //LicenseManager.KEY = License.KEY;
 
+        // inflate the layout
+        View v = inflater.inflate(R.layout.calendar_fragment, container, false);
+
+        // get the calendar view object from the inflated layout
+        calendar = (XuniCalendar) v.findViewById(R.id.calendar);
+
+        // manipulate the calendar
         calendar.setBackgroundColor(Color.BLACK);
         calendar.setTextColor(Color.WHITE);
         calendar.setHeaderBackgroundColor(Color.BLACK);
@@ -70,21 +76,26 @@ public class CalendarFragment extends Fragment {
                 // find dates within range and display in Detail Day Slot
                 if(cal.compareTo(start) >= 0){
                     if(cal.compareTo(today) <= 0){
-                        //
+
                         CalendarDetailDaySlot view = new CalendarDetailDaySlot(context);
                         view.setDayText(String.valueOf(day));
-                        view.setDayTextColor(Color.DKGRAY);
+                        view.setDayTextColor(Color.LTGRAY);
                         view.setDetailText("$ "+repository.getTotalDayAmount(cal));
                         view.setDetailFontSize(12);
                         view.setDetailTextColor(Color.GREEN);
                         args.setDaySlot(view);
                     }
                 }
-
+                else{
+                    CalendarDetailDaySlot view = new CalendarDetailDaySlot(context);
+                    view.setDayText(String.valueOf(day));
+                    view.setDayTextColor(Color.LTGRAY);
+                    args.setDaySlot(view);
+                }
 
             }
         }, this);
 
-        return inflater.inflate(R.layout.calendar_fragment, container, false);
+        return v;
     }
 }
