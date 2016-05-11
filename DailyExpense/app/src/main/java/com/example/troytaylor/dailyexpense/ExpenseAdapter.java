@@ -40,7 +40,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder vh, int position){
         vh.descriptionView.setText(expenses.get(position).getDescription());
-        vh.amountView.setText(Double.toString(expenses.get(position).getAmount());
+        vh.amountView.setText(Double.toString(expenses.get(position).getAmount()));
     }
     @Override
     public int getItemCount(){
