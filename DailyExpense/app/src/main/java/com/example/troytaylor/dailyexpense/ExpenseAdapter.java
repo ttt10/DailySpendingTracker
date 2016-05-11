@@ -20,20 +20,16 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TableRow tableRow;
         public TextView descriptionView;
         public TextView amountView;
-        public ViewHolder(TableRow tr, TextView tv1, TextView tv2){
-            tableRow = tr;
-            descriptionView = tv1;
-            amountView = tv2;
-
+        public ViewHolder(View view){
+            super(view);
+            descriptionView = (TextView) view.findViewById(R.id.description);
+            amountView = (TextView) view.findViewById(R.id.amount);
         }
     }
 
-    public ExpenseAdapter(List<Expense> list){
-        expenses = list;
-    }
+    public ExpenseAdapter(List<Expense> list) { expenses = list; }
     @Override
     public ExpenseAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         TableRow v = (TableRow) LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_item, parent, false);
