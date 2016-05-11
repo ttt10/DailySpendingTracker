@@ -1,6 +1,5 @@
 package com.example.troytaylor.dailyexpense;
 
-import com.grapecity.xuni.calendar.XuniCalendar;
 import com.grapecity.xuni.core.LicenseManager;
 
 import android.graphics.Color;
@@ -17,8 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager manager;
     private FragmentTransaction transaction;
     private Fragment calendarFragment;
-    private ExpenseListFragment expenseListFragment;
-    private XuniCalendar calendar;
+    private Fragment expenseListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         calendarFragment = new CalendarFragment();
+        expenseListFragment = new ExpenseListFragment();
 
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
@@ -35,6 +34,21 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, calendarFragment);
         transaction.commit();
 
+    }
+
+    //TODO: create a method that handles replacing the calendarFragment with the expenseListFragment
+    public void loadCalendarFragment(){
+        transaction = manager.beginTransaction();
+        transaction.replace(R.id.expense_recycler_view, calendarFragment);
+        transaction.commit();
+    }
+
+    public void loadExpenseListFragment(){
+
+
+        transaction = manager.beginTransaction();
+        transaction.replace(R.id.calendar, expenseListFragment);
+        transaction.commit();
     }
 
 

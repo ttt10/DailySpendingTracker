@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.content.Context;
 
-import com.grapecity.xuni.core.LicenseManager;
 import com.grapecity.xuni.core.IEventHandler;
 import com.grapecity.xuni.calendar.*;
 
@@ -16,7 +15,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.StringTokenizer;
 
 /**
  * Created by troytaylor on 4/28/16.
@@ -32,7 +30,6 @@ public class CalendarFragment extends Fragment {
 
         context = getActivity();
         repository = MyApp.getServicesComponent().getRepository();
-        //LicenseManager.KEY = License.KEY;
 
         // inflate the layout
         View v = inflater.inflate(R.layout.calendar_fragment, container, false);
