@@ -40,7 +40,6 @@ public class CalendarFragment extends Fragment {
         // get the calendar view object from the inflated layout
         calendar = (XuniCalendar) v.findViewById(R.id.calendar);
 
-        //((MainActivity) getActivity()).
         // manipulate the calendar
         calendar.setBackgroundColor(Color.BLACK);
         calendar.setTextColor(Color.WHITE);
@@ -96,6 +95,18 @@ public class CalendarFragment extends Fragment {
 
             }
         }, this);
+
+        calendar.getSelectionChanged().addHandler(new IEventHandler() {
+            @Override
+            public void call(Object o, Object o1){
+
+
+                //TODO: add handler to CalendarSelectionChangedEvent that opens the ExpenseListFragment
+                //((MainActivity) getActivity()).loadExpenseListFragment();
+
+            }
+        }, this);
+
 
         return v;
     }
