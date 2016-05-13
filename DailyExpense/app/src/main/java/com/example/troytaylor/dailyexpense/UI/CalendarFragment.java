@@ -1,4 +1,4 @@
-package com.example.troytaylor.dailyexpense;
+package com.example.troytaylor.dailyexpense.UI;
 
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.content.Context;
 
+import com.example.troytaylor.dailyexpense.*;
+import com.example.troytaylor.dailyexpense.R;
+import com.example.troytaylor.dailyexpense.Services.Repository.IRepository;
 import com.grapecity.xuni.core.IEventHandler;
 import com.grapecity.xuni.calendar.*;
 
@@ -32,11 +35,12 @@ public class CalendarFragment extends Fragment {
         repository = MyApp.getServicesComponent().getRepository();
 
         // inflate the layout
-        View v = inflater.inflate(R.layout.calendar_fragment, container, false);
+        View v = inflater.inflate(com.example.troytaylor.dailyexpense.R.layout.calendar_fragment, container, false);
 
         // get the calendar view object from the inflated layout
         calendar = (XuniCalendar) v.findViewById(R.id.calendar);
 
+        //((MainActivity) getActivity()).
         // manipulate the calendar
         calendar.setBackgroundColor(Color.BLACK);
         calendar.setTextColor(Color.WHITE);

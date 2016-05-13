@@ -1,4 +1,7 @@
-package com.example.troytaylor.dailyexpense;
+package com.example.troytaylor.dailyexpense.Services.Repository;
+
+import com.example.troytaylor.dailyexpense.Expense;
+import com.example.troytaylor.dailyexpense.Services.Repository.IRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

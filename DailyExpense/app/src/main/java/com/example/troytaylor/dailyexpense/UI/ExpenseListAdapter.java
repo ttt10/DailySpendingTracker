@@ -1,20 +1,21 @@
-package com.example.troytaylor.dailyexpense;
+package com.example.troytaylor.dailyexpense.UI;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.troytaylor.dailyexpense.Expense;
+import com.example.troytaylor.dailyexpense.R;
+
 import java.util.List;
-import java.lang.String;
 
 /**
  * Created by troytaylor on 5/11/16.
  */
-public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHolder> {
+public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.ViewHolder> {
 
     private List<Expense> expenses;
 
@@ -29,9 +30,9 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
         }
     }
 
-    public ExpenseAdapter(List<Expense> list) { expenses = list; }
+    public ExpenseListAdapter(List<Expense> list) { expenses = list; }
     @Override
-    public ExpenseAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public ExpenseListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         TableRow v = (TableRow) LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_item, parent, false);
 
         ViewHolder vh = new ViewHolder(v);

@@ -1,4 +1,4 @@
-package com.example.troytaylor.dailyexpense;
+package com.example.troytaylor.dailyexpense.UI;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;

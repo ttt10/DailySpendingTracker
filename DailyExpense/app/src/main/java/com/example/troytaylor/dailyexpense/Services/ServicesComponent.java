@@ -1,4 +1,7 @@
-package com.example.troytaylor.dailyexpense;
+package com.example.troytaylor.dailyexpense.Services;
+
+import com.example.troytaylor.dailyexpense.Services.Repository.IRepository;
+import com.example.troytaylor.dailyexpense.Services.Repository.TestRepository;
 
 /**
  * Created by troytaylor on 5/4/16.

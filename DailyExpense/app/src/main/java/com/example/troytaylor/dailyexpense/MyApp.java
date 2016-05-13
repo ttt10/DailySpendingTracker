@@ -2,6 +2,8 @@ package com.example.troytaylor.dailyexpense;
 
 import android.app.Application;
 
+import com.example.troytaylor.dailyexpense.Services.ServicesComponent;
+
 /**
  * Created by troytaylor on 5/4/16.
  */

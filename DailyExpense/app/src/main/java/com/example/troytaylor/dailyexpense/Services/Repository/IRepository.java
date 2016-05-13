@@ -1,4 +1,6 @@
-package com.example.troytaylor.dailyexpense;
+package com.example.troytaylor.dailyexpense.Services.Repository;
+
+import com.example.troytaylor.dailyexpense.Expense;
 
 import java.util.Calendar;
 import java.util.List;

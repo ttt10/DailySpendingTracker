@@ -1,10 +1,10 @@
-package com.example.troytaylor.dailyexpense;
+package com.example.troytaylor.dailyexpense.UI;
 
+import com.example.troytaylor.dailyexpense.Entities.License;
+import com.example.troytaylor.dailyexpense.R;
 import com.grapecity.xuni.core.LicenseManager;
 
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
