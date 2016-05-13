@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.troytaylor.dailyexpense.Expense;
+import com.example.troytaylor.dailyexpense.Entities.Expense;
 import com.example.troytaylor.dailyexpense.R;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.troytaylor.dailyexpense.Entities;
+package com.example.troytaylor.dailyexpense;
 
 /**
  * Created by troytaylor on 4/28/16.

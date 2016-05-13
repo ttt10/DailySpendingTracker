@@ -1,4 +1,4 @@
-package com.example.troytaylor.dailyexpense;
+package com.example.troytaylor.dailyexpense.Entities;
 
 import java.util.Calendar;
 

@@ -1,6 +1,6 @@
 package com.example.troytaylor.dailyexpense.UI;
 
-import com.example.troytaylor.dailyexpense.Entities.License;
+import com.example.troytaylor.dailyexpense.License;
 import com.example.troytaylor.dailyexpense.R;
 import com.grapecity.xuni.core.LicenseManager;
 
