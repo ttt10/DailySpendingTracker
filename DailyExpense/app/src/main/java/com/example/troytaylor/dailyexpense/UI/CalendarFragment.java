@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by troytaylor on 4/28/16.
@@ -96,13 +97,18 @@ public class CalendarFragment extends Fragment {
             }
         }, this);
 
+        //TODO: add handler to CalendarSelectionChangedEvent that opens the ExpenseListFragment
         calendar.getSelectionChanged().addHandler(new IEventHandler() {
             @Override
             public void call(Object o, Object o1){
+                CalendarSelectionChangedEventArgs args = (CalendarSelectionChangedEventArgs) o1;
+                List<Date> date = args.getSelectedDates();
 
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date.get(0));
 
-                //TODO: add handler to CalendarSelectionChangedEvent that opens the ExpenseListFragment
-                //((MainActivity) getActivity()).loadExpenseListFragment();
+                repository.setSelectedDay(cal);
+                ((MainActivity) getActivity()).loadExpenseListFragment();
 
             }
         }, this);

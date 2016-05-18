@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableRow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.troytaylor.dailyexpense.Entities.Expense;
@@ -33,7 +33,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
     public ExpenseListAdapter(List<Expense> list) { expenses = list; }
     @Override
     public ExpenseListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        TableRow v = (TableRow) LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_item, parent, false);
+        RelativeLayout v = (RelativeLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_item, parent, false);
 
         ViewHolder vh = new ViewHolder(v);
         return vh;

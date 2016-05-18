@@ -1,11 +1,12 @@
 package com.example.troytaylor.dailyexpense.Entities;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  * Created by troytaylor on 4/28/16.
  */
-public class Expense {
+public class Expense implements Serializable{
 
     private Calendar date; // need month day year & time set in this object
     private String description;

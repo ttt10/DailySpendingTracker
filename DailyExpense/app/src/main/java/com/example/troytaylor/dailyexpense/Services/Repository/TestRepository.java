@@ -15,12 +15,14 @@ import java.util.List;
 public class TestRepository implements IRepository {
 
     private List<Expense> AllExpenses = new ArrayList<>();
+    private Calendar SelectedDay; // today as default
 
     public TestRepository(){
 
         /* generate some dates, descriptions and amounts */
 
         Calendar today = Calendar.getInstance();
+        SelectedDay = today;
 
         /* add expenses */
         // today's expenses
@@ -163,4 +165,11 @@ public class TestRepository implements IRepository {
         return monthAmount;
     }
 
+    public void setSelectedDay(Calendar day){
+        SelectedDay = day;
+    }
+
+    public Calendar getSelectedDay(){
+        return SelectedDay;
+    }
 }

@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment calendarFragment;
     private Fragment expenseListFragment;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         LicenseManager.KEY = License.KEY;
@@ -36,20 +37,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //TODO: create a method that handles replacing the calendarFragment with the expenseListFragment
     public void loadCalendarFragment(){
         transaction = manager.beginTransaction();
-        transaction.replace(R.id.expense_recycler_view, calendarFragment);
+        transaction.setCustomAnimations(R.anim.calendar_enter, R.anim.expense_exit);
+
+        transaction.replace(R.id.fragment_container, calendarFragment);
         transaction.commit();
     }
 
     public void loadExpenseListFragment(){
-
-
         transaction = manager.beginTransaction();
-        transaction.replace(R.id.calendar, expenseListFragment);
+        transaction.setCustomAnimations(R.anim.expense_enter, R.anim.calendar_exit);
+        transaction.replace(R.id.fragment_container, expenseListFragment);
         transaction.commit();
     }
 
+    //TODO: add onBackPressed() method to handle back navigation between the fragments
+    public void onBackPressed(){
+//        if(manager.getBackStackEntryCount() > 0){
+//            manager.popBackStack();
+//        }
+
+        loadCalendarFragment();
+    }
 
 }

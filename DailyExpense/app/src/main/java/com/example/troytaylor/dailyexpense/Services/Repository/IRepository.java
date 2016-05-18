@@ -45,4 +45,14 @@ public interface IRepository {
      */
     double getTotalMonthAmount(Calendar month);
 
+    /**
+     *  sets the selected day
+     */
+    void setSelectedDay(Calendar day);
+
+    /**
+     *  returns the selected day
+     */
+    Calendar getSelectedDay();
+
 }
