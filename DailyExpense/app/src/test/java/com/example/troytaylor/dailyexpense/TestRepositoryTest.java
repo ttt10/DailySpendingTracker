@@ -46,7 +46,7 @@ public class TestRepositoryTest {
     @Test
     public void getTotalMonthAmount() throws Exception {
         TestRepository repo = new TestRepository();
-
+        // by default returns true. need to change assertion below
         assertEquals(repo.getTotalMonthAmount(Calendar.getInstance()) , repo.getTotalMonthAmount(Calendar.getInstance()), .01);
     }
 

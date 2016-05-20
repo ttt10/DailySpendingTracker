@@ -20,7 +20,6 @@ public class TestRepository implements IRepository {
     public TestRepository(){
 
         /* generate some dates, descriptions and amounts */
-
         Calendar today = Calendar.getInstance();
         SelectedDay = today;
 
@@ -51,6 +50,10 @@ public class TestRepository implements IRepository {
             Date d = current.getTime();
             Calendar c = Calendar.getInstance();
             c.setTime(d);
+
+            //checks that the current day does not add any additional entries
+            if(today.get(Calendar.DAY_OF_YEAR) == c.get(Calendar.DAY_OF_YEAR)) break;
+
             Expense e = new Expense(c, desc[i%6], amount[j%8]);
             AllExpenses.add(e);
             //System.out.println(current.toString());

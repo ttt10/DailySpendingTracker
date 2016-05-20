@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         transaction.replace(R.id.fragment_container, calendarFragment);
         transaction.commit();
-
     }
 
     public void loadCalendarFragment(){
@@ -47,18 +46,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadExpenseListFragment(){
         transaction = manager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.expense_enter, R.anim.calendar_exit);
+        transaction.setCustomAnimations(R.anim.expense_enter, R.anim.calendar_exit, R.anim.calendar_enter, R.anim.expense_exit);
         transaction.replace(R.id.fragment_container, expenseListFragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 
     //TODO: add onBackPressed() method to handle back navigation between the fragments
     public void onBackPressed(){
-//        if(manager.getBackStackEntryCount() > 0){
-//            manager.popBackStack();
-//        }
-
-        loadCalendarFragment();
+        // pops the ExpenseListFragment off the BackStack
+        if(manager.getBackStackEntryCount() > 0){
+            manager.popBackStack();
+        }
     }
 
 }

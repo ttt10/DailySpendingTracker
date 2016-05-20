@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.support.design.widget.FloatingActionButton;
+
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.LayoutManager;
@@ -31,11 +33,22 @@ public class ExpenseListFragment extends Fragment {
     public Calendar today;
     public List<Expense> todaysExpenses;
 
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         //inflate the layout for this fragment
         container.removeAllViews();
         View view = inflater.inflate(R.layout.expense_list_fragment, container, false);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+
+        //TODO: add onClickListener to fab to manually add an expense
+        /*
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        */
 
         repository = MyApp.getServicesComponent().getRepository();
         today = repository.getSelectedDay();

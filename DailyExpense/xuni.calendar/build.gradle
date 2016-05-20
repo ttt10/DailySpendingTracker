@@ -1,2 +1,7 @@
 configurations.maybeCreate("default")
 artifacts.add("default", file('xuni.calendar-4.0.20161.108.aar'))
+task testClasses {
+    doLast{
+        println 'This is a dummy textClasses task'
+    }
+}

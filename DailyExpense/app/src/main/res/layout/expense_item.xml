@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:andorid="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tableRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,6 +24,20 @@
             android:gravity="left"
             android:layout_toRightOf="@+id/amount"/>
 
+    <ImageView
+        android:id="@+id/edit"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_mode_edit_black_24dp"
+        android:layout_toLeftOf="@+id/clear">
+    </ImageView>
+    <ImageView
+        android:id="@+id/clear"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_clear_black_24dp"
+        android:layout_alignParentRight="true">
+    </ImageView>
 
     <View
         android:layout_height="2dip"
