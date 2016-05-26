@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:andorid="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/tableRow"
+    android:id="@+id/expense_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp">
@@ -13,16 +13,16 @@
         android:textColor="@color/green"
         android:text="$ $ $"
         android:textSize="40dp"/>
-        <TextView
-            android:id="@+id/description"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Description"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:gravity="left"
-            android:layout_toRightOf="@+id/amount"/>
+    <TextView
+        android:id="@+id/description"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="Description"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:gravity="left"
+        android:layout_toRightOf="@+id/amount"/>
 
     <ImageView
         android:id="@+id/edit"
@@ -35,6 +35,7 @@
         android:id="@+id/clear"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:onClick="clearOnClick"
         android:src="@drawable/ic_clear_black_24dp"
         android:layout_alignParentRight="true">
     </ImageView>

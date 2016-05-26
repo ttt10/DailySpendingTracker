@@ -1,8 +1,10 @@
 package com.example.troytaylor.dailyexpense.UI;
 
 import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,7 @@ public class CalendarFragment extends Fragment {
 
         context = getActivity();
         repository = MyApp.getServicesComponent().getRepository();
+
 
         // inflate the layout
         View v = inflater.inflate(com.example.troytaylor.dailyexpense.R.layout.calendar_fragment, container, false);
@@ -116,5 +119,34 @@ public class CalendarFragment extends Fragment {
 
 
         return v;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstance) {
+        super.onActivityCreated(savedInstance);
+        long displayDate;
+        if(savedInstance != null && savedInstance.containsKey("DisplayDate")){
+            displayDate = savedInstance.getLong("DisplayDate");
+            calendar.setDisplayDate(new Date(displayDate));
+            Log.d("", displayDate+" here");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putLong("DisplayDate", calendar.getDisplayDate().getTime());
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        long displayDate;
+        if(savedInstanceState != null && savedInstanceState.containsKey("DisplayDate")){
+            displayDate = savedInstanceState.getLong("DisplayDate");
+            calendar.setDisplayDate(new Date(displayDate));
+        }
+
     }
 }
