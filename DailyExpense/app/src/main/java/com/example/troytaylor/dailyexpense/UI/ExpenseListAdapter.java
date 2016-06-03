@@ -18,7 +18,8 @@ import java.util.List;
 public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.ViewHolder> {
 
     private List<Expense> expenses;
-    private final View.OnClickListener onClickListener;
+    private final View.OnClickListener editOnClickListener;
+    private final View.OnClickListener clearOnClickListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -33,22 +34,25 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
         }
     }
 
-    public ExpenseListAdapter(List<Expense> list, View.OnClickListener listener) {
+    public ExpenseListAdapter(List<Expense> list, View.OnClickListener editListener, View.OnClickListener clearListener) {
         expenses = list;
-        onClickListener = listener;
+        editOnClickListener = editListener;
+        clearOnClickListener = clearListener;
     }
+
     @Override
     public ExpenseListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         RelativeLayout v = (RelativeLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_item, parent, false);
-        v.setOnClickListener(onClickListener);
+        //v.setOnClickListener(onClickListener);
         ViewHolder vh = new ViewHolder(v);
-
         return vh;
     }
     @Override
     public void onBindViewHolder(ViewHolder vh, int position){
         vh.descriptionView.setText(expenses.get(position).getDescription());
-        vh.parent.setTag(expenses.get(position));
+        vh.parent.findViewById(R.id.clear).setOnClickListener(clearOnClickListener);
+        vh.parent.findViewById(R.id.edit).setOnClickListener(editOnClickListener);
+        vh.parent.setTag(expenses.get(position)); // what does this do?
         vh.amountView.setText("$ "+Double.toString(expenses.get(position).getAmount()));
     }
 
