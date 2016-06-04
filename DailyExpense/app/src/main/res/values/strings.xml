@@ -2,5 +2,6 @@
     <string name="app_name">Daily Expense</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_new_expense">Enter the Expense Details</string>
+
 </resources>

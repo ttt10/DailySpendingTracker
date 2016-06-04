@@ -1,12 +1,8 @@
 package com.example.troytaylor.dailyexpense.UI;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +11,11 @@ import android.view.ViewGroup;
 import android.support.design.widget.FloatingActionButton;
 
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.Adapter;
-import android.support.v7.widget.RecyclerView.LayoutManager;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.troytaylor.dailyexpense.Entities.Expense;
 import com.example.troytaylor.dailyexpense.MyApp;
 import com.example.troytaylor.dailyexpense.R;
-import com.example.troytaylor.dailyexpense.Services.OnTaskCompleted;
 import com.example.troytaylor.dailyexpense.Services.Repository.IRepository;
 
 import java.util.Calendar;
@@ -53,7 +46,7 @@ public class ExpenseListFragment extends Fragment /* implements OnTaskCompleted<
     {
         @Override
         public void onClick(View v) {
-            new ClearConfirmationDialog();
+            callbackListener.loadDeleteDialog();
         }
     };
 
@@ -68,6 +61,10 @@ public class ExpenseListFragment extends Fragment /* implements OnTaskCompleted<
         repository = MyApp.getServicesComponent().getRepository();
         day = repository.getSelectedDay();
         dayExpenses = repository.getExpenses(day);
+
+        TextView textView = (TextView) view.findViewById(R.id.list_date);
+        String date = day.get(Calendar.MONTH)+ "."+day.get(Calendar.DAY_OF_MONTH)+"."+day.get(Calendar.YEAR);
+        textView.setText(date);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.expense_recycler_view);
 
@@ -98,41 +95,11 @@ public class ExpenseListFragment extends Fragment /* implements OnTaskCompleted<
         }
     }
 
-    public static class ClearConfirmationDialog extends DialogFragment{
 
-        public ClearConfirmationDialog(){}
-
-        @Override
-        public void onCreate(Bundle savedInstance){
-            super.onCreate(savedInstance);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Delete this expense?");
-            builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // delete from repository
-                    // MyApp.getServicesComponent().getRepository().removeExpense(    );
-                }
-            });
-
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // exit
-                    dialog.dismiss();
-                }
-            });
-            Dialog d = builder.create();
-            d.show();
-            //return d;
-        }
-
-
-    }
 
     public interface OnFABClickListener {
         void loadEditExpenseFragment();
+        void loadDeleteDialog();
         //TODO: add  method that takes parameter about selected expense
     }
 }
