@@ -18,6 +18,7 @@ import com.example.troytaylor.dailyexpense.MyApp;
 import com.example.troytaylor.dailyexpense.R;
 import com.example.troytaylor.dailyexpense.Services.Repository.IRepository;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -62,8 +63,9 @@ public class ExpenseListFragment extends Fragment /* implements OnTaskCompleted<
         day = repository.getSelectedDay();
         dayExpenses = repository.getExpenses(day);
 
+        /* Display the date of the expenses */
         TextView textView = (TextView) view.findViewById(R.id.list_date);
-        String date = day.get(Calendar.MONTH)+ "."+day.get(Calendar.DAY_OF_MONTH)+"."+day.get(Calendar.YEAR);
+        String date = new SimpleDateFormat("MMMM").format(day.getTime())+ " "+day.get(Calendar.DAY_OF_MONTH)+", "+day.get(Calendar.YEAR);
         textView.setText(date);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.expense_recycler_view);
