@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements ExpenseListFragme
     private FragmentTransaction transaction;
     private Fragment calendarFragment;
     private Fragment expenseListFragment;
-    // be careful of memory leaks here!!
+    // be careful of memory leaks here..
     private Fragment editExpenseFragment;
 
     @Override
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements ExpenseListFragme
         // pops the ExpenseListFragment off the BackStack
         if(manager.getBackStackEntryCount() > 0){
             manager.popBackStack();
-            System.out.println("popping from back stack...");
+            // System.out.println("popping from back stack...");
         }
     }
 

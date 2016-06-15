@@ -110,7 +110,7 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
 
         // add to repo
         MyApp.getServicesComponent().getRepository().addExpense(new Expense(date, description, amount));
-
+        mListener.onBackPressed();
     }
 
     /**
@@ -126,5 +126,6 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
     public interface OnBackClickListener {
         // TODO: Update argument type and name
         void loadExpenseListFragment();
+        void onBackPressed();
     }
 }

@@ -2,6 +2,8 @@ package com.example.troytaylor.dailyexpense.Services.Repository;
 
 import com.example.troytaylor.dailyexpense.Entities.Expense;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -146,6 +148,9 @@ public class TestRepository implements IRepository {
                 }
             }
         }
+
+        NumberFormat numberFormat = new DecimalFormat("#.##");
+        dayAmount = Double.parseDouble(numberFormat.format(dayAmount));
         return dayAmount;
     }
 

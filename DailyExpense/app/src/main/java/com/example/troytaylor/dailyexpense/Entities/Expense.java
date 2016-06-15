@@ -1,6 +1,8 @@
 package com.example.troytaylor.dailyexpense.Entities;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Calendar;
 
 /**
@@ -15,7 +17,10 @@ public class Expense implements Serializable{
     public Expense(Calendar date, String description, double amount){
         this.date = date;
         this.description = description;
-        this.amount = amount;
+
+        NumberFormat format = new DecimalFormat("#.##");
+        double amt = Double.parseDouble( format.format(amount));
+        this.amount = amt;
     }
 
     //TODO: refactor modifier methods to return booleans

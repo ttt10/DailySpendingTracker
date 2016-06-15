@@ -77,7 +77,7 @@ public class CalendarFragment extends Fragment {
                 }
 
                 Calendar today = Calendar.getInstance();
-
+                //TODO: set day format only if there exists 1+ expense(s) for that day
                 // find dates within range and display in Detail Day Slot
                 if(cal.compareTo(start) >= 0){
                     if(cal.compareTo(today) <= 0){
@@ -117,7 +117,6 @@ public class CalendarFragment extends Fragment {
             }
         }, this);
 
-
         return v;
     }
 
@@ -135,7 +134,6 @@ public class CalendarFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
         outState.putLong("DisplayDate", calendar.getDisplayDate().getTime());
     }
 
