@@ -20,7 +20,8 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:text="Enter Description..." />
+        android:hint="Enter Description..."
+        android:textColorHint="@color/white"/>
 
     <EditText
         android:id="@+id/edit_amount"
@@ -28,7 +29,8 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:text="Enter Amount..." />
+        android:hint="Enter Amount..."
+        android:textColorHint="@color/white"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -36,6 +38,7 @@
         android:textAlignment="center"
         android:text="Save"
         android:id="@+id/save_button"
+        android:onClick="onSaveButtonClick"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

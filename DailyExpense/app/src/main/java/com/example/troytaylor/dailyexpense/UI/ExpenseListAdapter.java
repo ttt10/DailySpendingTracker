@@ -1,9 +1,12 @@
 package com.example.troytaylor.dailyexpense.UI;
 
+import android.media.Image;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,40 +21,63 @@ import java.util.List;
 public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.ViewHolder> {
 
     private List<Expense> expenses;
-    private final View.OnClickListener editOnClickListener;
-    private final View.OnClickListener clearOnClickListener;
+    public ViewHolder.RecycleItemClicks listener;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        public Expense expense;
         public View parent;
         public TextView descriptionView;
         public TextView amountView;
+        public ImageView editView;
+        public ImageView clearView;
+        public ViewHolder.RecycleItemClicks listener;
+
         public ViewHolder(View view){
             super(view);
             this.parent = view;
-            descriptionView = (TextView) view.findViewById(R.id.description);
-            amountView = (TextView) view.findViewById(R.id.amount);
+            this.descriptionView = (TextView) view.findViewById(R.id.description);
+            this.amountView = (TextView) view.findViewById(R.id.amount);
+            this.editView = (ImageView) view.findViewById(R.id.edit);
+            this.clearView = (ImageView) view.findViewById(R.id.clear);
+
+            this.editView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.loadEditExpenseFragment(expense);
+                }
+            });
+
+            this.clearView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.loadDeleteDialog(expense);
+                }
+            });
+        }
+
+        public interface RecycleItemClicks{
+            void loadEditExpenseFragment(Expense expense);
+            void loadDeleteDialog(Expense expense);
         }
     }
 
-    public ExpenseListAdapter(List<Expense> list, View.OnClickListener editListener, View.OnClickListener clearListener) {
+    public ExpenseListAdapter(List<Expense> list, ViewHolder.RecycleItemClicks listener) {
         expenses = list;
-        editOnClickListener = editListener;
-        clearOnClickListener = clearListener;
+        this.listener = listener;
     }
 
     @Override
     public ExpenseListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         RelativeLayout v = (RelativeLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_item, parent, false);
-        //v.setOnClickListener(onClickListener);
         ViewHolder vh = new ViewHolder(v);
+        vh.listener = listener;
         return vh;
     }
     @Override
     public void onBindViewHolder(ViewHolder vh, int position){
+        vh.expense = expenses.get(position);
         vh.descriptionView.setText(expenses.get(position).getDescription());
-        vh.parent.findViewById(R.id.clear).setOnClickListener(clearOnClickListener);
-        vh.parent.findViewById(R.id.edit).setOnClickListener(editOnClickListener);
         vh.parent.setTag(expenses.get(position)); // what does this do?
         vh.amountView.setText("$ "+Double.toString(expenses.get(position).getAmount()));
     }
@@ -65,4 +91,5 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
     public int getItemCount(){
         return expenses.size();
     }
+
 }

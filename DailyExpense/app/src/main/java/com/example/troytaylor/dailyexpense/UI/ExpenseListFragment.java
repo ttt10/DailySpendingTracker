@@ -25,9 +25,9 @@ import java.util.List;
 /**
  * Created by troytaylor on 4/28/16.
  */
-public class ExpenseListFragment extends Fragment /* implements OnTaskCompleted<List<Expense>> */{
+public class ExpenseListFragment extends Fragment implements ExpenseListAdapter.ViewHolder.RecycleItemClicks /* OnTaskCompleted<List<Expense>> */{
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    public RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private IRepository repository;
 
@@ -35,21 +35,6 @@ public class ExpenseListFragment extends Fragment /* implements OnTaskCompleted<
 
     public Calendar day;
     public List<Expense> dayExpenses;
-
-    private final View.OnClickListener editListener = new View.OnClickListener(){
-        @Override
-        public void onClick(View v) {
-            //TODO: pass arguments or save info from expense to populate in EditExpenseFragment
-            // ((MainActivity)getActivity()).loadEditExpenseFragment();
-        }
-    };
-    private final View.OnClickListener clearListener = new View.OnClickListener()
-    {
-        @Override
-        public void onClick(View v) {
-            callbackListener.loadDeleteDialog();
-        }
-    };
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
@@ -73,7 +58,7 @@ public class ExpenseListFragment extends Fragment /* implements OnTaskCompleted<
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new ExpenseListAdapter(dayExpenses, editListener, clearListener);
+        adapter = new ExpenseListAdapter(dayExpenses, this); //fragment is the listener
         recyclerView.setAdapter(adapter);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +69,14 @@ public class ExpenseListFragment extends Fragment /* implements OnTaskCompleted<
         });
 
         return view;
+    }
+
+    //@Override
+    public void onResume(){
+        super.onResume();
+        //TODO: refresh recyclerview
+        adapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -97,11 +90,17 @@ public class ExpenseListFragment extends Fragment /* implements OnTaskCompleted<
         }
     }
 
-
+    public void updateUI(){
+        adapter.notifyDataSetChanged();
+    }
+    public void loadEditExpenseFragment(Expense expense){
+        ((MainActivity)this.getActivity()).loadEditExpenseFragment(expense);
+    }
+    public void loadDeleteDialog(Expense expense){
+        ((MainActivity)this.getActivity()).loadDeleteDialog(expense);
+    }
 
     public interface OnFABClickListener {
         void loadEditExpenseFragment();
-        void loadDeleteDialog();
-        //TODO: add  method that takes parameter about selected expense
     }
 }

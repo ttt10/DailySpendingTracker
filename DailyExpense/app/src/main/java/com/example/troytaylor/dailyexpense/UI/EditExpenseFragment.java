@@ -7,8 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.example.troytaylor.dailyexpense.Entities.Expense;
+import com.example.troytaylor.dailyexpense.MyApp;
 import com.example.troytaylor.dailyexpense.R;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,16 +25,10 @@ import com.example.troytaylor.dailyexpense.R;
  * Use the {@link EditExpenseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EditExpenseFragment extends Fragment {
+public class EditExpenseFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private Expense expense;
     private OnBackClickListener mListener;
 
     public EditExpenseFragment() {
@@ -38,17 +39,12 @@ public class EditExpenseFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment EditExpenseFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static EditExpenseFragment newInstance(String param1, String param2) {
+    public static EditExpenseFragment newInstance() {
         EditExpenseFragment fragment = new EditExpenseFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -56,8 +52,9 @@ public class EditExpenseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // get the expense object
+            this.expense = (Expense) getArguments().getSerializable("Exp");
+
         }
     }
 
@@ -65,7 +62,16 @@ public class EditExpenseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.edit_expense_fragment, container, false);
+        View view = inflater.inflate(R.layout.edit_expense_fragment, container, false);
+        if(expense != null) {
+            ((EditText) view.findViewById(R.id.edit_description)).setText(this.expense.getDescription());
+            ((EditText) view.findViewById(R.id.edit_amount)).setText("" + this.expense.getAmount());
+        }
+        Button b = (Button) view.findViewById(R.id.save_button);
+        b.setOnClickListener(this);
+        // if a datepicker view is available, gives user option to change date
+        // Calendar dayToEdit = MyApp.getServicesComponent().getRepository().getSelectedDay();
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -90,6 +96,21 @@ public class EditExpenseFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        // get the expense object data from the views
+        Calendar date = MyApp.getServicesComponent().getRepository().getSelectedDay();
+        EditText desc_view = (EditText) this.getActivity().findViewById(R.id.edit_description);
+        String description = desc_view.getText().toString();
+        EditText amount_view = (EditText) this.getActivity().findViewById(R.id.edit_amount);
+        double amount = Double.parseDouble(amount_view.getText().toString());
+
+        // add to repo
+        MyApp.getServicesComponent().getRepository().addExpense(new Expense(date, description, amount));
+
     }
 
     /**
