@@ -45,4 +45,6 @@ public class Expense implements Serializable{
     public double getAmount(){
         return this.amount;
     }
+
+    //TODO: add compare method
 }

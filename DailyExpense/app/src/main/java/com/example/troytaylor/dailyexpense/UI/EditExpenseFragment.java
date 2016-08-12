@@ -108,8 +108,11 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
         EditText amount_view = (EditText) this.getActivity().findViewById(R.id.edit_amount);
         double amount = Double.parseDouble(amount_view.getText().toString());
 
+        // remove old from repo
+        MyApp.getServicesComponent().getRepository().removeExpense(expense);
         // add to repo
         MyApp.getServicesComponent().getRepository().addExpense(new Expense(date, description, amount));
+        //mListener.updateExpenseList(); // notify activity of change
         mListener.onBackPressed();
     }
 
@@ -126,6 +129,7 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
     public interface OnBackClickListener {
         // TODO: Update argument type and name
         void loadExpenseListFragment();
+        //void updateExpenseList();
         void onBackPressed();
     }
 }

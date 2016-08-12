@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements ExpenseListFragme
 //        transaction.commit();
 //    }
 
+    // create new expense
     public void loadEditExpenseFragment(){
         transaction = manager.beginTransaction();
         transaction.setCustomAnimations(R.anim.expense_enter, R.anim.calendar_exit, R.anim.calendar_enter, R.anim.expense_exit);
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements ExpenseListFragme
         transaction.commit();
     }
 
+    // edit existing expense
     public void loadEditExpenseFragment(Expense expense){
         transaction = manager.beginTransaction();
 
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements ExpenseListFragme
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
 
     public void loadExpenseListFragment(){
         manager.saveFragmentInstanceState(calendarFragment);
@@ -105,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements ExpenseListFragme
                 MyApp.getServicesComponent().getRepository().removeExpense(expense);
 
                 // Notify adapter update on UI thread
-                //expenseListFragment.onResume();
+                updateExpenseList();
                 MainActivity.this.runOnUiThread(run);
 
             }
@@ -123,6 +126,13 @@ public class MainActivity extends AppCompatActivity implements ExpenseListFragme
         alertDialog.show();
     }
 
+    public void updateExpenseList(){
+        expenseListFragment.onResume();
+        transaction = manager.beginTransaction();
+        transaction.detach(expenseListFragment);
+        transaction.attach(expenseListFragment);
+        transaction.commit();
+    }
     public void onBackPressed(){
         // pops the ExpenseListFragment off the BackStack
         if(manager.getBackStackEntryCount() > 0){

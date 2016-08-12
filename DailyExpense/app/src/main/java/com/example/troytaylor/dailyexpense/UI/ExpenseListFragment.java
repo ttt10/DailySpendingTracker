@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.troytaylor.dailyexpense.Entities.Expense;
 import com.example.troytaylor.dailyexpense.MyApp;
 import com.example.troytaylor.dailyexpense.R;
+import com.example.troytaylor.dailyexpense.Services.OnTaskCompleted;
 import com.example.troytaylor.dailyexpense.Services.Repository.IRepository;
 
 import java.text.SimpleDateFormat;
@@ -90,9 +91,6 @@ public class ExpenseListFragment extends Fragment implements ExpenseListAdapter.
         }
     }
 
-    public void updateUI(){
-        adapter.notifyDataSetChanged();
-    }
     public void loadEditExpenseFragment(Expense expense){
         ((MainActivity)this.getActivity()).loadEditExpenseFragment(expense);
     }
