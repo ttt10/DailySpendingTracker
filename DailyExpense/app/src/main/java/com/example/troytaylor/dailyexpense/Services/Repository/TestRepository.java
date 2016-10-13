@@ -1,5 +1,6 @@
 package com.example.troytaylor.dailyexpense.Services.Repository;
 
+import com.example.troytaylor.dailyexpense.Constants.Categories;
 import com.example.troytaylor.dailyexpense.Entities.Expense;
 
 import java.text.DecimalFormat;
@@ -27,9 +28,9 @@ public class TestRepository implements IRepository {
 
         /* add expenses */
         // today's expenses
-        AllExpenses.add(new Expense(today, "Chipotle", 10.92));
-        AllExpenses.add(new Expense(today, "Noodlehead", 9.63));
-        AllExpenses.add(new Expense(today, "CVS", 23.11));
+        AllExpenses.add(new Expense(today, "Chipotle", 10.92, Categories.FOOD));
+        AllExpenses.add(new Expense(today, "Noodlehead", 9.63, Categories.FOOD));
+        AllExpenses.add(new Expense(today, "CVS", 23.11, Categories.MISCELLANEOUS));
 
         //random expenses from January 12
         int i = 0;
@@ -56,7 +57,7 @@ public class TestRepository implements IRepository {
             //checks that the current day does not add any additional entries
             if(today.get(Calendar.DAY_OF_YEAR) == c.get(Calendar.DAY_OF_YEAR)) break;
 
-            Expense e = new Expense(c, desc[i%6], amount[j%8]);
+            Expense e = new Expense(c, desc[i%6], amount[j%8], Categories.NONE);
             AllExpenses.add(e);
             //System.out.println(current.toString());
             i++;

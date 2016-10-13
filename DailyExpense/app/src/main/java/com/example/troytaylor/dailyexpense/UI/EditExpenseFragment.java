@@ -7,15 +7,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
+import com.example.troytaylor.dailyexpense.Constants.Categories;
 import com.example.troytaylor.dailyexpense.Entities.Expense;
 import com.example.troytaylor.dailyexpense.MyApp;
 import com.example.troytaylor.dailyexpense.R;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,8 +71,14 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
         }
         Button b = (Button) view.findViewById(R.id.save_button);
         b.setOnClickListener(this);
+
+        Spinner spinner = (Spinner) view.findViewById(R.id.edit_category_spinner);
+        ArrayAdapter<Categories> adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_item, Categories.values());
+        spinner.setAdapter(adapter);
+        spinner.setSelection(adapter.getPosition(expense.getCategory()));
         // if a datepicker view is available, gives user option to change date
         // Calendar dayToEdit = MyApp.getServicesComponent().getRepository().getSelectedDay();
+
         return view;
     }
 
@@ -103,15 +111,22 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
 
         // get the expense object data from the views
         Calendar date = MyApp.getServicesComponent().getRepository().getSelectedDay();
+
         EditText desc_view = (EditText) this.getActivity().findViewById(R.id.edit_description);
         String description = desc_view.getText().toString();
+
         EditText amount_view = (EditText) this.getActivity().findViewById(R.id.edit_amount);
         double amount = Double.parseDouble(amount_view.getText().toString());
 
+        Spinner spinner = (Spinner) this.getActivity().findViewById(R.id.edit_category_spinner);
+        Categories category = (Categories) spinner.getSelectedItem();
+
         // remove old from repo
-        MyApp.getServicesComponent().getRepository().removeExpense(expense);
+        if(expense != null) {
+            MyApp.getServicesComponent().getRepository().removeExpense(expense);
+        }
         // add to repo
-        MyApp.getServicesComponent().getRepository().addExpense(new Expense(date, description, amount));
+        MyApp.getServicesComponent().getRepository().addExpense(new Expense(date, description, amount, category));
         //mListener.updateExpenseList(); // notify activity of change
         mListener.onBackPressed();
     }

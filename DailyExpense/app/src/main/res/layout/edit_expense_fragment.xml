@@ -1,17 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.troytaylor.dailyexpense.UI.EditExpenseFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="@string/create_new_expense"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        android:layout_margin="5dp"/>
 
 
     <EditText
@@ -21,7 +27,8 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:hint="Enter Description..."
-        android:textColorHint="@color/white"/>
+        android:textColorHint="@color/white"
+        android:layout_margin="5dp"/>
 
     <EditText
         android:id="@+id/edit_amount"
@@ -30,7 +37,18 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:hint="Enter Amount..."
-        android:textColorHint="@color/white"/>
+        android:textColorHint="@color/white"
+        android:layout_margin="5dp"/>
+
+    <Spinner
+        android:id="@+id/edit_category_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dropDownSelector="@android:color/white"
+        android:background="@android:color/darker_gray"
+        android:textAlignment="center"
+        android:spinnerMode="dropdown"
+        android:layout_margin="5dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -41,4 +59,5 @@
         android:onClick="onSaveButtonClick"
         android:layout_gravity="center_horizontal" />
 
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
