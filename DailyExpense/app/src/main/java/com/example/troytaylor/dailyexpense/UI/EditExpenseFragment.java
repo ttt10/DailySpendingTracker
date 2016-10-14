@@ -73,7 +73,8 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
         b.setOnClickListener(this);
 
         Spinner spinner = (Spinner) view.findViewById(R.id.edit_category_spinner);
-        ArrayAdapter<Categories> adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_item, Categories.values());
+        ArrayAdapter<Categories> adapter = new ArrayAdapter<>(this.getContext(), R.layout.spinner_item, Categories.values());
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(adapter.getPosition(expense.getCategory()));
         // if a datepicker view is available, gives user option to change date

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="@string/create_new_expense"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/holo_green_light"
         android:layout_margin="5dp"/>
 
 
@@ -46,13 +46,15 @@
         android:layout_height="wrap_content"
         android:dropDownSelector="@android:color/white"
         android:background="@android:color/darker_gray"
+        android:layout_margin="5dp"
         android:textAlignment="center"
-        android:spinnerMode="dropdown"
-        android:layout_margin="5dp"/>
+        android:spinnerMode="dropdown" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@android:color/darker_gray"
         android:textAlignment="center"
         android:text="Save"
         android:id="@+id/save_button"

@@ -70,6 +70,7 @@ public class TestRepository implements IRepository {
         //TODO: add expense to AllExpenses
         return AllExpenses.add(expense);
     }
+    //TODO: public boolean updateExpense() {}
 
     public boolean removeExpense(Expense expense){
 

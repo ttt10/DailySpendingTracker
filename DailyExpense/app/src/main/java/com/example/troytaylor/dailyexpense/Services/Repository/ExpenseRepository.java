@@ -1,5 +1,6 @@
 package com.example.troytaylor.dailyexpense.Services.Repository;
 
+import com.example.troytaylor.dailyexpense.Constants.Categories;
 import com.example.troytaylor.dailyexpense.Entities.Expense;
 
 import java.util.Calendar;
