@@ -9,15 +9,15 @@ import java.util.List;
 /**
  * Created by troytaylor on 8/19/16.
  *
- * The Expense Repository is responsible for CRUD operations on the SQLite Database and providing the application data
+ * The SQLiteRepository is responsible for CRUD operations on the SQLite Database and providing the application data
  *
  */
-public class ExpenseRepository implements IRepository {
+public class SQLiteRepository implements IRepository {
 
     private List<Expense> expenseList;
     private Calendar selectedDay;
 
-    public ExpenseRepository(){}
+    public SQLiteRepository(){}
 
     public boolean addExpense(Expense e){
         //TODO: return true when expense added to list

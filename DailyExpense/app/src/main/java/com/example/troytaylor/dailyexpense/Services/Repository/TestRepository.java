@@ -28,13 +28,14 @@ public class TestRepository implements IRepository {
 
         /* add expenses */
         // today's expenses
-        AllExpenses.add(new Expense(today, "Chipotle", 10.92, Categories.FOOD));
-        AllExpenses.add(new Expense(today, "Noodlehead", 9.63, Categories.FOOD));
-        AllExpenses.add(new Expense(today, "CVS", 23.11, Categories.MISCELLANEOUS));
+        AllExpenses.add(new Expense(today, "Chipotle", 10.92, Categories.FOOD, ""));
+        AllExpenses.add(new Expense(today, "Noodlehead", 9.63, Categories.FOOD, ""));
+        AllExpenses.add(new Expense(today, "CVS", 23.11, Categories.MISCELLANEOUS, ""));
 
         //random expenses from January 12
         int i = 0;
         int j = 0;
+        String[] merchants = {"CVS", "Giant Eagle","Target","Verizon","Banana Republic","Gilt", "Nike"};
         String[] desc = {"Shoes", "Groceries","Clothes","Dining","Bill(s)","Misc."};
         double[] amount = {5.00,125.45,44.70,14.28,63.03,35.00,27.80,14.39};
 
@@ -57,7 +58,7 @@ public class TestRepository implements IRepository {
             //checks that the current day does not add any additional entries
             if(today.get(Calendar.DAY_OF_YEAR) == c.get(Calendar.DAY_OF_YEAR)) break;
 
-            Expense e = new Expense(c, desc[i%6], amount[j%8], Categories.NONE);
+            Expense e = new Expense(c, merchants[i%7], amount[j%8], Categories.NONE, desc[i%6]);
             AllExpenses.add(e);
             //System.out.println(current.toString());
             i++;
@@ -102,7 +103,6 @@ public class TestRepository implements IRepository {
                 continue;
             }
 
-            System.out.println("Found the expense to remove");
             AllExpenses.remove(i);
             isRemoved = true;
             break;

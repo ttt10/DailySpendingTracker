@@ -20,13 +20,13 @@ public class TestRepositoryTest {
     public void addExpense() throws Exception {
         TestRepository repo = new TestRepository();
 
-        assertEquals(true, repo.addExpense(new Expense(Calendar.getInstance(), "Test Description", 20.00, Categories.NONE)));
+        assertEquals(true, repo.addExpense(new Expense(Calendar.getInstance(), "Test Merchant", 20.00, Categories.NONE, "Test Description")));
     }
 
     @Test
     public void removeExpense() throws Exception {
         TestRepository repo = new TestRepository();
-        assertEquals(true, repo.removeExpense(new Expense(Calendar.getInstance(), "Chipotle", 10.92, Categories.FOOD)));
+        assertEquals(true, repo.removeExpense(new Expense(Calendar.getInstance(), "Chipotle", 10.92, Categories.FOOD, "Burrito")));
     }
 
     @Test

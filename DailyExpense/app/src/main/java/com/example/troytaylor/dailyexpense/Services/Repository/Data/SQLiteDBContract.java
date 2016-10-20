@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
  *
  *      This class defines the Schema for the Database and contains constants for creating and deleting the database
  */
-public class ExpenseDBContract {
+public class SQLiteDBContract {
 
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
@@ -16,7 +16,7 @@ public class ExpenseDBContract {
     public static final String SQL_CREATE_DB = "CREATE DATABASE IF NOT EXISTS ";
     // TODO: ADD constraints for column values
     public static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE" + ExpenseDBContract.ExpenseDB.TABLE_NAME + "(" +
+            "CREATE TABLE" + SQLiteDBContract.ExpenseDB.TABLE_NAME + "(" +
                     ExpenseDB._ID + " INTEGER PRIMARY KEY,"+
                     ExpenseDB.COLUMN_MERCHANT_NAME + TEXT_TYPE +","+
                     ExpenseDB.COLUMN_AMOUNT + INTEGER_TYPE +","+
@@ -26,7 +26,7 @@ public class ExpenseDBContract {
             "DROP TABLE IF EXISTS "+ ExpenseDB.TABLE_NAME;
 
 
-    private ExpenseDBContract( ) {}
+    private SQLiteDBContract( ) {}
 
     // define the Schema for SQLiteDatabase
     public static class ExpenseDB implements BaseColumns {

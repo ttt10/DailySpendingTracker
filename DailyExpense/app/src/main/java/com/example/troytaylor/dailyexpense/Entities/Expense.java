@@ -13,13 +13,15 @@ import java.util.Calendar;
 public class Expense implements Serializable{
 
     private Calendar date; // need month day year & time set in this object
-    private String description;
+    private String merchant;
     private double amount;
     private Categories category;
+    private String description;
 
-    public Expense(Calendar date, String description, double amount, Categories category){
+    public Expense(Calendar date, String merchant, double amount, Categories category, String description){
         this.date = date;
-        this.description = description;
+        this.merchant = merchant;
+        this.description= description;
         this.category = category;
         NumberFormat format = new DecimalFormat("#.##");
         double amt = Double.parseDouble( format.format(amount));
@@ -27,6 +29,8 @@ public class Expense implements Serializable{
     }
 
     //TODO: refactor modifier methods to return booleans
+    public void setMerchant(String merchant) { this.merchant = merchant; }
+    public String getMerchant() { return this.merchant; }
 
     public void setDate(Calendar cal){
         date = cal;
