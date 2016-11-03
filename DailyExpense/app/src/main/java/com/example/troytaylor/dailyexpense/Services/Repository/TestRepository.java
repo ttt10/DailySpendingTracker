@@ -68,14 +68,12 @@ public class TestRepository implements IRepository {
     }
 
     public boolean addExpense(Expense expense){
-        //TODO: add expense to AllExpenses
         return AllExpenses.add(expense);
     }
     //TODO: public boolean updateExpense() {}
 
     public boolean removeExpense(Expense expense){
 
-        //TODO: remove expense from AllExpenses.
         boolean isRemoved = false;
         int s = AllExpenses.size();
         Calendar expenseDate = expense.getDate();
@@ -133,7 +131,6 @@ public class TestRepository implements IRepository {
     }
 
     public double getTotalDayAmount(Calendar day){
-        //TODO: return sum of all expenses on day
         double dayAmount = 0.0;
         int s = AllExpenses.size();
         Calendar current;
@@ -157,11 +154,10 @@ public class TestRepository implements IRepository {
     }
 
     public double getTotalMonthAmount(Calendar month){
-        //TODO: return sum of all expenses in month
         double monthAmount = 0.0;
         int m = month.get(Calendar.MONTH);
         int s = AllExpenses.size();
-        int expMonth = 0;
+        int expMonth;
 
         for(int i=0; i<s; i++){
             Expense exp = AllExpenses.get(i);

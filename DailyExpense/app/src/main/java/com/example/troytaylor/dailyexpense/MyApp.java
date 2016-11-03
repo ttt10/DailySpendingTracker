@@ -13,7 +13,7 @@ public class MyApp extends Application {
 
     public void onCreate(){
         super.onCreate();
-        servicesComponent = new ServicesComponent();
+        servicesComponent = new ServicesComponent(this);
     }
 
     public static ServicesComponent getServicesComponent(){

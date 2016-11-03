@@ -51,4 +51,6 @@ public class TestRepositoryTest {
         assertEquals(repo.getTotalMonthAmount(Calendar.getInstance()) , repo.getTotalMonthAmount(Calendar.getInstance()), .01);
     }
 
+    //TODO: getTotalWeekAmount(), get total amount for certain categories?
+
 }

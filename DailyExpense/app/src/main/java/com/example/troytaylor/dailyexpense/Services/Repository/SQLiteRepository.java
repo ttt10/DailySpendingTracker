@@ -1,7 +1,13 @@
 package com.example.troytaylor.dailyexpense.Services.Repository;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
 import com.example.troytaylor.dailyexpense.Constants.Categories;
 import com.example.troytaylor.dailyexpense.Entities.Expense;
+import com.example.troytaylor.dailyexpense.Services.Repository.Data.SQLiteDBHelper;
+import com.example.troytaylor.dailyexpense.UI.MainActivity;
 
 import java.util.Calendar;
 import java.util.List;
@@ -14,10 +20,17 @@ import java.util.List;
  */
 public class SQLiteRepository implements IRepository {
 
+    private SQLiteDatabase Database;
+    private SQLiteOpenHelper DBHelper;
+    private Context context;
+
     private List<Expense> expenseList;
     private Calendar selectedDay;
 
-    public SQLiteRepository(){}
+    public SQLiteRepository(Context context){
+        //TODO: create repo, create/connect to db, upgrade db
+        DBHelper = new SQLiteDBHelper(context);
+    }
 
     public boolean addExpense(Expense e){
         //TODO: return true when expense added to list
