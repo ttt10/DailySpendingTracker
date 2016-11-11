@@ -12,7 +12,6 @@ public final class SQLiteDBContract {
     public static final String SQL_CREATE_DB = "CREATE DATABASE IF NOT EXISTS ";
     public static final String SQL_CREATE_TABLE =
             "CREATE TABLE IF NOT EXISTS" + SQLiteDBContract.ExpenseDB.TABLE_NAME + "(" +
-                    ExpenseDB._ID + " INTEGER,"+
                     ExpenseDB.COLUMN_NAME_DATE + ExpenseDB.DATE_TYPE + " NOT NULL,"+
                     ExpenseDB.COLUMN_NAME_MERCHANT + ExpenseDB.TEXT_TYPE +" NOT NULL,"+
                     ExpenseDB.COLUMN_NAME_AMOUNT + ExpenseDB.INTEGER_TYPE +" NOT NULL,"+
@@ -25,7 +24,10 @@ public final class SQLiteDBContract {
 
     private SQLiteDBContract( ) {}
 
-    // define the table contents
+    /**
+     *   ExpenseDB defines the table contents
+     *     - BaseColumns adds an _ID primary key
+     */
     public static class ExpenseDB implements BaseColumns {
 
         /* table names */

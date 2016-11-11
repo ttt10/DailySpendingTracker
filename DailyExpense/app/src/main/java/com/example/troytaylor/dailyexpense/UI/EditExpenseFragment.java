@@ -113,6 +113,10 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
         // get the expense object data from the views
         Calendar date = MyApp.getServicesComponent().getRepository().getSelectedDay();
 
+        //TODO: add merchant UI, replace desc
+        EditText merchant_view = (EditText) this.getActivity().findViewById(R.id.edit_merchant);
+        String merchant = merchant_view.getText().toString();
+
         EditText desc_view = (EditText) this.getActivity().findViewById(R.id.edit_description);
         String description = desc_view.getText().toString();
 
@@ -127,7 +131,7 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
             MyApp.getServicesComponent().getRepository().removeExpense(expense);
         }
         // add to repo
-        MyApp.getServicesComponent().getRepository().addExpense(new Expense(date, description, amount, category));
+        MyApp.getServicesComponent().getRepository().addExpense(date, merchant, amount, description, category);
         //mListener.updateExpenseList(); // notify activity of change
         mListener.onBackPressed();
     }

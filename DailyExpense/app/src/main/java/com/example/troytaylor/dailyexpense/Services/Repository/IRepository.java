@@ -1,5 +1,6 @@
 package com.example.troytaylor.dailyexpense.Services.Repository;
 
+import com.example.troytaylor.dailyexpense.Constants.Categories;
 import com.example.troytaylor.dailyexpense.Entities.Expense;
 
 import java.util.Calendar;
@@ -12,10 +13,14 @@ public interface IRepository {
 
     /**
      * Adds an expense object to the repository
-     * @param expense: new com.example.troytaylor.dailyexpense.Entities.Expense object to be added
+     * @param date: date of com.example.troytaylor.dailyexpense.Entities.Expense object to be added
+     * @param merchant: name of merchant of com.example.troytaylor.dailyexpense.Entities.Expense object to be added
+     * @param amount: amount of com.example.troytaylor.dailyexpense.Entities.Expense object to be added
+     * @param description: description of com.example.troytaylor.dailyexpense.Entities.Expense object to be added
+     * @param category: category of com.example.troytaylor.dailyexpense.Constants.Categories object to be added
      * @return: returns true if expense was added
      */
-    boolean addExpense(Expense expense);
+    boolean addExpense(Calendar date, String merchant, double amount, String description, Categories category);
 
     /**
      *  Removes an com.example.troytaylor.dailyexpense.Entities.Expense object from the repository

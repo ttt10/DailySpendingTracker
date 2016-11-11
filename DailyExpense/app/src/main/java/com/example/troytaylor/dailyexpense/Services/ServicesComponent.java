@@ -17,8 +17,8 @@ public class ServicesComponent {
     private IRepository repository;
 
     public ServicesComponent(Context context){
-        this.repository = new SQLiteRepository(context);
-        //this.repository = new TestRepository();
+        //this.repository = new SQLiteRepository(context);
+        this.repository = new TestRepository();
     }
 
     public IRepository getRepository() {
