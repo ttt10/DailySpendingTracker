@@ -1,7 +1,7 @@
 package com.example.troytaylor.dailyexpense.Services.Repository;
 
 import com.example.troytaylor.dailyexpense.Constants.Categories;
-import com.example.troytaylor.dailyexpense.Entities.Expense;
+import com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense;
 
 import java.util.Calendar;
 import java.util.List;
@@ -13,17 +13,17 @@ public interface IRepository {
 
     /**
      * Adds an expense object to the repository
-     * @param date: date of com.example.troytaylor.dailyexpense.Entities.Expense object to be added
-     * @param merchant: name of merchant of com.example.troytaylor.dailyexpense.Entities.Expense object to be added
-     * @param amount: amount of com.example.troytaylor.dailyexpense.Entities.Expense object to be added
-     * @param description: description of com.example.troytaylor.dailyexpense.Entities.Expense object to be added
+     * @param date: date of com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense object to be added
+     * @param merchant: name of merchant of com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense object to be added
+     * @param amount: amount of com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense object to be added
+     * @param description: description of com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense object to be added
      * @param category: category of com.example.troytaylor.dailyexpense.Constants.Categories object to be added
      * @return: returns true if expense was added
      */
     boolean addExpense(Calendar date, String merchant, double amount, String description, Categories category);
 
     /**
-     *  Removes an com.example.troytaylor.dailyexpense.Entities.Expense object from the repository
+     *  Removes an com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense object from the repository
      *  @param expense: the expense object that will be removed
      *  @return: returns true if expense was removed
      */
@@ -32,7 +32,7 @@ public interface IRepository {
     /**
      *  Gets a list of Expenses for a specified day
      * @param selectedDay: the day the user wants expenses for
-     * @return: returns List of com.example.troytaylor.dailyexpense.Entities.Expense objects for a given day
+     * @return: returns List of com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense objects for a given day
      *
      */
     List<Expense> getExpenses(Calendar selectedDay);

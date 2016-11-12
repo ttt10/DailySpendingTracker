@@ -1,4 +1,4 @@
-package com.example.troytaylor.dailyexpense.Entities;
+package com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities;
 
 import com.example.troytaylor.dailyexpense.Constants.Categories;
 
@@ -29,38 +29,26 @@ public class Expense implements Serializable{
         double amt = Double.parseDouble( format.format(amount));
         this.amount = amt;
     }
+
     public long getId() { return id; }
 
-    //TODO: refactor modifier methods to return booleans
-    public void setMerchant(String merchant) { this.merchant = merchant; }
-    public String getMerchant() { return this.merchant; }
-
-    public void setDate(Calendar cal){
-        date = cal;
-    }
     public Calendar getDate(){
         return this.date;
     }
 
-    public void setDescription(String desc){
-        this.description = desc;
-    }
+    public String getMerchant() { return this.merchant; }
+
     public String getDescription(){
         return this.description;
     }
 
-    public void setAmount(double amnt){
-        this.amount = amnt;
-    }
     public double getAmount(){
         return this.amount;
     }
 
-    public void setCategory(Categories category){
-        this.category = category;
-    }
     public Categories getCategory() {
         return this.category;
     }
+
     //TODO: add compare method
 }

@@ -2,17 +2,22 @@ package com.example.troytaylor.dailyexpense.Services.Repository;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.ContactsContract;
 
 import com.example.troytaylor.dailyexpense.Constants.Categories;
-import com.example.troytaylor.dailyexpense.Entities.Expense;
+import com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense;
 import com.example.troytaylor.dailyexpense.Services.Repository.Data.SQLiteDBContract;
 import com.example.troytaylor.dailyexpense.Services.Repository.Data.SQLiteDBHelper;
-import com.example.troytaylor.dailyexpense.UI.MainActivity;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,11 +32,11 @@ public class SQLiteRepository implements IRepository {
     private SQLiteOpenHelper DBHelper;
     private Context context;
 
-    private List<Expense> expenseList; // don't think I need this
     private Calendar selectedDay;
 
     public SQLiteRepository(Context context){
         DBHelper = new SQLiteDBHelper(context);
+
         //TODO: set selectedDay
 
     }
@@ -50,9 +55,6 @@ public class SQLiteRepository implements IRepository {
         long newRowId = Database.insert(SQLiteDBContract.ExpenseDB.TABLE_NAME, null, contentValues);
         Database.close();
 
-        Expense added = new Expense(newRowId, date, merchant, amount, category, description);
-        expenseList.add(added);
-
         if( newRowId == -1) return false;
         else return true;
     }
@@ -66,21 +68,68 @@ public class SQLiteRepository implements IRepository {
         int result = Database.delete(SQLiteDBContract.ExpenseDB.TABLE_NAME, selection, selectionArgs);
         Database.close();
 
-        if(result > 0){
-            expenseList.remove(e);
-        }else{
-            System.out.println("expense not deleted from db");
-        }
         return result > 0;
-
     }
 
     @Override
     public List<Expense> getExpenses(Calendar selectedDay) {
-        //Database = DBHelper.getReadableDatabase();
-        // TODO: should I query db here? perhaps to ensure persistence...
+        List<Expense> expenseList = new ArrayList<>();
+        Database = DBHelper.getReadableDatabase();
 
-        //Database.close();
+        // query db
+        String [] projection = {
+                SQLiteDBContract.ExpenseDB._ID,
+                SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE,
+                SQLiteDBContract.ExpenseDB.COLUMN_NAME_MERCHANT,
+                SQLiteDBContract.ExpenseDB.COLUMN_NAME_AMOUNT,
+                SQLiteDBContract.ExpenseDB.COLUMN_NAME_DESCRIPTION,
+                SQLiteDBContract.ExpenseDB.COLUMN_NAME_CATEGORY
+        }; // columns from db
+
+        String selection = SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE + " = ?";
+        String[] selectionArgs = { selectedDay.toString() };
+
+        Cursor c = Database.query(
+                SQLiteDBContract.ExpenseDB.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        // add result to expenseList
+        int count = c.getCount();
+        c.moveToFirst();
+        for(int i=0; i<count; i++) {
+            long id = c.getLong(c.getColumnIndex(SQLiteDBContract.ExpenseDB._ID));
+
+            String dateString = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE));
+            // convert date string to Calendar object
+            Calendar date = Calendar.getInstance();
+            DateFormat formatter = new SimpleDateFormat("YYYY-MM-DD HH:MM:SS");
+            Date d = null;
+            try {
+                d = formatter.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            date.setTime(d);
+
+            String merchant = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_MERCHANT));;
+            double amount = c.getDouble(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_AMOUNT));;
+            String description = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_DESCRIPTION));;
+
+            String ctg = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_CATEGORY));
+            Categories category = Categories.valueOf(ctg);
+
+            // add to expenseList
+            expenseList.add(new Expense(id, date, merchant, amount, category, description));
+            c.moveToNext(); // move cursor to next row
+        }
+
+        Database.close();
         return expenseList;
     }
 
@@ -88,6 +137,12 @@ public class SQLiteRepository implements IRepository {
     public double getTotalDayAmount(Calendar day) {
         Database = DBHelper.getReadableDatabase();
         // TODO: query sum of a day
+
+        String[] projection; // columns from db
+        String selection; // selection query filter
+        String[] selectionArgs = {}; // arguments for selection filter
+
+
 
         Database.close();
         return 0;

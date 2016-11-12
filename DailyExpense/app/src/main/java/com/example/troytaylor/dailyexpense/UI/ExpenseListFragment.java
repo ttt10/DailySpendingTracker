@@ -13,10 +13,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-import com.example.troytaylor.dailyexpense.Entities.Expense;
+import com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense;
 import com.example.troytaylor.dailyexpense.MyApp;
 import com.example.troytaylor.dailyexpense.R;
-import com.example.troytaylor.dailyexpense.Services.OnTaskCompleted;
 import com.example.troytaylor.dailyexpense.Services.Repository.IRepository;
 
 import java.text.SimpleDateFormat;
@@ -75,7 +74,8 @@ public class ExpenseListFragment extends Fragment implements ExpenseListAdapter.
     //@Override
     public void onResume(){
         super.onResume();
-        //TODO: refresh recyclerview
+
+        // refresh recyclerview
         adapter.notifyDataSetChanged();
 
     }

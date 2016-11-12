@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.troytaylor.dailyexpense.Constants.Categories;
-import com.example.troytaylor.dailyexpense.Entities.Expense;
+import com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense;
 import com.example.troytaylor.dailyexpense.MyApp;
 import com.example.troytaylor.dailyexpense.R;
 
@@ -54,9 +54,8 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            // get the expense object
+            // get the (Serializable) expense object from the bundle
             this.expense = (Expense) getArguments().getSerializable("Exp");
-
         }
     }
 
@@ -66,6 +65,7 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.edit_expense_fragment, container, false);
         if(expense != null) {
+            ((EditText) view.findViewById(R.id.edit_merchant)).setText(this.expense.getMerchant());
             ((EditText) view.findViewById(R.id.edit_description)).setText(this.expense.getDescription());
             ((EditText) view.findViewById(R.id.edit_amount)).setText("" + this.expense.getAmount());
         }

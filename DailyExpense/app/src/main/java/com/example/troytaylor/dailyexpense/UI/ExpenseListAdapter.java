@@ -1,7 +1,5 @@
 package com.example.troytaylor.dailyexpense.UI;
 
-import android.media.Image;
-import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.troytaylor.dailyexpense.Entities.Expense;
+import com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense;
 import com.example.troytaylor.dailyexpense.R;
 
 import java.util.List;

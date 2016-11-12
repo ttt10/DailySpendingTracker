@@ -1,14 +1,14 @@
 package com.example.troytaylor.dailyexpense.UI;
 
-import com.example.troytaylor.dailyexpense.Entities.Expense;
+import com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense;
 import com.example.troytaylor.dailyexpense.License;
 import com.example.troytaylor.dailyexpense.MyApp;
 import com.example.troytaylor.dailyexpense.R;
+import com.example.troytaylor.dailyexpense.Services.Repository.IRepository;
+import com.example.troytaylor.dailyexpense.Services.Repository.SQLiteRepository;
 import com.grapecity.xuni.core.LicenseManager;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,7 +16,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-
+/**
+ *      MainActivity class
+ *          - manages fragments
+ *
+ */
 public class MainActivity extends AppCompatActivity implements ExpenseListFragment.OnFABClickListener, EditExpenseFragment.OnBackClickListener{
 
     private FragmentManager manager;
@@ -28,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements ExpenseListFragme
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        LicenseManager.KEY = License.KEY;
+        LicenseManager.KEY = License.KEY; // License Xuni Calendar
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

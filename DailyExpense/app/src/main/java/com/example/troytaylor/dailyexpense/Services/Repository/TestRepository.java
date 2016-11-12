@@ -1,9 +1,7 @@
 package com.example.troytaylor.dailyexpense.Services.Repository;
 
-import android.content.Context;
-
 import com.example.troytaylor.dailyexpense.Constants.Categories;
-import com.example.troytaylor.dailyexpense.Entities.Expense;
+import com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -15,7 +13,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by troytaylor on 4/28/16.
+ *      TestRepository class
+ *          - generates mock data for testing
  */
 public class TestRepository implements IRepository {
 
@@ -30,9 +29,9 @@ public class TestRepository implements IRepository {
 
         /* add expenses */
         // today's expenses
-        AllExpenses.add(new Expense(today, "Chipotle", 10.92, Categories.FOOD, ""));
-        AllExpenses.add(new Expense(today, "Noodlehead", 9.63, Categories.FOOD, ""));
-        AllExpenses.add(new Expense(today, "CVS", 23.11, Categories.MISCELLANEOUS, ""));
+        AllExpenses.add(new Expense(-1, today, "Chipotle", 10.92, Categories.FOOD, ""));
+        AllExpenses.add(new Expense(-1, today, "Noodlehead", 9.63, Categories.FOOD, ""));
+        AllExpenses.add(new Expense(-1, today, "CVS", 23.11, Categories.MISCELLANEOUS, ""));
 
         //random expenses from January 12
         int i = 0;
@@ -60,7 +59,7 @@ public class TestRepository implements IRepository {
             //checks that the current day does not add any additional entries
             if(today.get(Calendar.DAY_OF_YEAR) == c.get(Calendar.DAY_OF_YEAR)) break;
 
-            Expense e = new Expense(c, merchants[i%7], amount[j%8], Categories.NONE, desc[i%6]);
+            Expense e = new Expense(-1, c, merchants[i%7], amount[j%8], Categories.NONE, desc[i%6]);
             AllExpenses.add(e);
             //System.out.println(current.toString());
             i++;
@@ -69,9 +68,20 @@ public class TestRepository implements IRepository {
         }
     }
 
+    public boolean addExpense(Calendar date, String merchant, double amount, String description, Categories category){
+        // not used in TestRepo since 'id' is not important
+        return false;
+    }
+    public boolean addExpense(long id, Calendar date, String merchant, double amount, String description, Categories category) {
+        // not used in TestRepo since 'id' is not important
+        return false;
+    }
+
     public boolean addExpense(Expense expense){
+
         return AllExpenses.add(expense);
     }
+
     //TODO: public boolean updateExpense() {}
 
     public boolean removeExpense(Expense expense){

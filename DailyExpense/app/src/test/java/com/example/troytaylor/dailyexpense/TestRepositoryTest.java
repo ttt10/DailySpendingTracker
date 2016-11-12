@@ -1,7 +1,7 @@
 package com.example.troytaylor.dailyexpense;
 
 import com.example.troytaylor.dailyexpense.Constants.Categories;
-import com.example.troytaylor.dailyexpense.Entities.Expense;
+import com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense;
 import com.example.troytaylor.dailyexpense.Services.Repository.TestRepository;
 
 import org.junit.Test;
@@ -20,13 +20,13 @@ public class TestRepositoryTest {
     public void addExpense() throws Exception {
         TestRepository repo = new TestRepository();
 
-        assertEquals(true, repo.addExpense(new Expense(Calendar.getInstance(), "Test Merchant", 20.00, Categories.NONE, "Test Description")));
+        assertEquals(true, repo.addExpense(new Expense(-1, Calendar.getInstance(), "Test Merchant", 20.00, Categories.NONE, "Test Description")));
     }
 
     @Test
     public void removeExpense() throws Exception {
         TestRepository repo = new TestRepository();
-        assertEquals(true, repo.removeExpense(new Expense(Calendar.getInstance(), "Chipotle", 10.92, Categories.FOOD, "Burrito")));
+        assertEquals(true, repo.removeExpense(new Expense(-1, Calendar.getInstance(), "Chipotle", 10.92, Categories.FOOD, "Burrito")));
     }
 
     @Test
