@@ -7,7 +7,8 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by troytaylor on 4/28/16.
+ *      IRepository interface
+ *          - standard interface for data interaction
  */
 public interface IRepository {
 

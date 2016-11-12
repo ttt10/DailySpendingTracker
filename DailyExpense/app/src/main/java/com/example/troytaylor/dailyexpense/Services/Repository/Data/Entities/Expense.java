@@ -8,8 +8,10 @@ import java.text.NumberFormat;
 import java.util.Calendar;
 
 /**
- * Created by troytaylor on 4/28/16.
+ *      Expense class
+ *          - Data model for an Expense
  */
+
 public class Expense implements Serializable{
 
     private long id;

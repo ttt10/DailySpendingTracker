@@ -21,9 +21,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by troytaylor on 8/19/16.
- *
- * The SQLiteRepository is responsible for CRUD operations on the SQLite Database and providing the application data
+ *      SQLiteRepository class
+ *          - responsible for CRUD operations on the SQLite Database and providing the application data
  *
  */
 public class SQLiteRepository implements IRepository {
