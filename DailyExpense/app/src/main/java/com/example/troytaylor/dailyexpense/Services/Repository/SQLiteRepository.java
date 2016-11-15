@@ -45,7 +45,11 @@ public class SQLiteRepository implements IRepository {
         Database = DBHelper.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE, date.toString());
+
+        //format date to "YYYY-MM-DD"
+        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
+        String formattedDate = format.format(date.getTime());
+        contentValues.put(SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE, formattedDate);
         contentValues.put(SQLiteDBContract.ExpenseDB.COLUMN_NAME_MERCHANT, merchant);
         contentValues.put(SQLiteDBContract.ExpenseDB.COLUMN_NAME_AMOUNT, amount);
         contentValues.put(SQLiteDBContract.ExpenseDB.COLUMN_NAME_DESCRIPTION, description);
@@ -75,7 +79,6 @@ public class SQLiteRepository implements IRepository {
         List<Expense> expenseList = new ArrayList<>();
         Database = DBHelper.getReadableDatabase();
 
-        // query db
         String [] projection = {
                 SQLiteDBContract.ExpenseDB._ID,
                 SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE,
@@ -107,7 +110,7 @@ public class SQLiteRepository implements IRepository {
             String dateString = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE));
             // convert date string to Calendar object
             Calendar date = Calendar.getInstance();
-            DateFormat formatter = new SimpleDateFormat("YYYY-MM-DD HH:MM:SS");
+            DateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
             Date d = null;
             try {
                 d = formatter.parse(dateString);
@@ -134,26 +137,54 @@ public class SQLiteRepository implements IRepository {
 
     @Override
     public double getTotalDayAmount(Calendar day) {
+        double sum = 0.0;
         Database = DBHelper.getReadableDatabase();
-        // TODO: query sum of a day
 
-        String[] projection; // columns from db
-        String selection; // selection query filter
-        String[] selectionArgs = {}; // arguments for selection filter
+        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
+        String selectionDay = format.format(day.getTime());
+        String[] selectionArgs = { selectionDay }; // arguments for selection filter
+        String sql = "SELECT SUM(amount) FROM " + SQLiteDBContract.ExpenseDB.TABLE_NAME+" WHERE "+ SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE+" = ?";
 
+        Cursor cursor = Database.rawQuery(sql, selectionArgs);
 
-
+        if(cursor.moveToFirst()){
+            sum = cursor.getDouble(0);
+        }
         Database.close();
-        return 0;
+
+        return sum;
     }
 
     @Override
     public double getTotalMonthAmount(Calendar month) {
         //TODO: query sum of a month
+        double sum = 0.0;
         Database = DBHelper.getReadableDatabase();
 
+        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
+        String startDay, endDay;
+
+        int daysInMonth = month.getMaximum(Calendar.DAY_OF_MONTH);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        startDay = format.format(cal);
+        cal.set(Calendar.DAY_OF_MONTH, daysInMonth);
+        endDay = format.format(cal);
+
+        System.out.println("start day: "+startDay);
+        System.out.println("end day: "+endDay);
+
+        String[] selectionArgs = { startDay, endDay }; // arguments for selection filter
+        String sql = "SELECT SUM(amount) FROM " + SQLiteDBContract.ExpenseDB.TABLE_NAME+" WHERE "+ SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE+" BETWEEN "+startDay+" AND "+endDay;
+
+        Cursor cursor = Database.rawQuery(sql, selectionArgs);
+
+        if(cursor.moveToFirst()){
+            sum = cursor.getDouble(0);
+        }
         Database.close();
-        return 0;
+
+        return sum;
     }
 
     public void setSelectedDay(Calendar day){

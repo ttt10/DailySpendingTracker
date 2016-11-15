@@ -72,10 +72,6 @@ public class TestRepository implements IRepository {
         // not used in TestRepo since 'id' is not important
         return false;
     }
-    public boolean addExpense(long id, Calendar date, String merchant, double amount, String description, Categories category) {
-        // not used in TestRepo since 'id' is not important
-        return false;
-    }
 
     public boolean addExpense(Expense expense){
 
