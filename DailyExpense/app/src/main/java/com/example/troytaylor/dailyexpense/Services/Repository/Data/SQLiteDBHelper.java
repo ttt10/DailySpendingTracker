@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.ContactsContract;
 
+import com.example.troytaylor.dailyexpense.R;
+
 /**
  * Created by troytaylor on 10/14/16.
  *
@@ -15,16 +17,29 @@ import android.provider.ContactsContract;
 public class SQLiteDBHelper extends SQLiteOpenHelper{
 
     public static final String DATABASE_NAME = "Expense.db";
+
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 1; //R.string.database_version; // from res/values/strings.xml
+
+    private static SQLiteDBHelper Instance;
+
+    // make database instance a singleton instance
+    public static synchronized SQLiteDBHelper getInstance(Context context){
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        if (Instance == null) {
+            Instance = new SQLiteDBHelper(context.getApplicationContext());
+        }
+        return Instance;
+    }
 
     public SQLiteDBHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        //context.openOrCreateDatabase(DATABASE_NAME, context.MODE_PRIVATE, null);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQLiteDBContract.SQL_CREATE_DB+DATABASE_NAME);
         db.execSQL(SQLiteDBContract.SQL_CREATE_TABLE);
     }
 

@@ -6,6 +6,7 @@ Below are some of the things I learned about while creating this app:
 ###Design patterns
 - Repository pattern
 - Single Responsibility pattern
+- Singleton pattern
 	
 ###UI patterns
 - Object Pool pattern (RecyclerView)
@@ -14,8 +15,9 @@ Below are some of the things I learned about while creating this app:
 ###Data Storage
 - SQLiteDatabases
 
-###Unit Tests
+###Testing
 - JUnit
+- Android Testing Support Library
 
 This app also uses a licensed version of GrapeCity's Xuni Calendar control. GrapeCity offers a variety of UI controls for Mobile developers in Android, iOS, Windows & Xamarin. Find out more about the product at [GoXuni.com](http://www.goxuni.com).
 

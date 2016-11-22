@@ -3,5 +3,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="create_new_expense">Enter the Expense Details</string>
+    <string name="database_version" format="integer">1</string>
 
 </resources>

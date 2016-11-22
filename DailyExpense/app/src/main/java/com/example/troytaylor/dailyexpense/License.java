@@ -1,7 +1,8 @@
 package com.example.troytaylor.dailyexpense;
 
 /**
- * Created by troytaylor on 4/28/16.
+ *      License class
+ *          - license key to use GrapeCity's Xuni Calendar control
  */
 public class License
 {

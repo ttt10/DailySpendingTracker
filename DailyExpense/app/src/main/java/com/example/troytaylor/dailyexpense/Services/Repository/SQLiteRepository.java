@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
 
 import com.example.troytaylor.dailyexpense.Constants.Categories;
 import com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense;
@@ -19,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *      SQLiteRepository class
@@ -29,25 +29,26 @@ public class SQLiteRepository implements IRepository {
 
     private SQLiteDatabase Database;
     private SQLiteOpenHelper DBHelper;
-    private Context context;
 
     private Calendar selectedDay;
 
     public SQLiteRepository(Context context){
-        DBHelper = new SQLiteDBHelper(context);
 
-        //TODO: set selectedDay
+        DBHelper = SQLiteDBHelper.getInstance(context);
+
+        //TODO: set selectedDay to today on start
+        selectedDay = Calendar.getInstance();
 
     }
 
-    public boolean addExpense(Calendar date, String merchant, double amount, String description, Categories category ){
+    public boolean addExpense(Calendar date, String merchant, double amount, String description, Categories category){
         //TODO: return true when expense added to list
         Database = DBHelper.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
 
         //format date to "YYYY-MM-DD"
-        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd", Locale.US);
         String formattedDate = format.format(date.getTime());
         contentValues.put(SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE, formattedDate);
         contentValues.put(SQLiteDBContract.ExpenseDB.COLUMN_NAME_MERCHANT, merchant);
@@ -76,7 +77,7 @@ public class SQLiteRepository implements IRepository {
 
     @Override
     public List<Expense> getExpenses(Calendar selectedDay) {
-        List<Expense> expenseList = new ArrayList<>();
+        List<Expense> expenseList = null;
         Database = DBHelper.getReadableDatabase();
 
         String [] projection = {
@@ -110,7 +111,7 @@ public class SQLiteRepository implements IRepository {
             String dateString = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE));
             // convert date string to Calendar object
             Calendar date = Calendar.getInstance();
-            DateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
+            DateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
             Date d = null;
             try {
                 d = formatter.parse(dateString);
@@ -140,7 +141,7 @@ public class SQLiteRepository implements IRepository {
         double sum = 0.0;
         Database = DBHelper.getReadableDatabase();
 
-        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
         String selectionDay = format.format(day.getTime());
         String[] selectionArgs = { selectionDay }; // arguments for selection filter
         String sql = "SELECT SUM(amount) FROM " + SQLiteDBContract.ExpenseDB.TABLE_NAME+" WHERE "+ SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE+" = ?";
@@ -161,7 +162,7 @@ public class SQLiteRepository implements IRepository {
         double sum = 0.0;
         Database = DBHelper.getReadableDatabase();
 
-        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
         String startDay, endDay;
 
         int daysInMonth = month.getMaximum(Calendar.DAY_OF_MONTH);

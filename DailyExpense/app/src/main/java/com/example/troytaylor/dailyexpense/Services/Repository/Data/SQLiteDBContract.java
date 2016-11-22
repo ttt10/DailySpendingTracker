@@ -11,12 +11,12 @@ public final class SQLiteDBContract {
 
     public static final String SQL_CREATE_DB = "CREATE DATABASE IF NOT EXISTS ";
     public static final String SQL_CREATE_TABLE =
-            "CREATE TABLE IF NOT EXISTS" + SQLiteDBContract.ExpenseDB.TABLE_NAME + "(" +
-                    ExpenseDB.COLUMN_NAME_DATE + ExpenseDB.DATE_TYPE + " NOT NULL,"+
-                    ExpenseDB.COLUMN_NAME_MERCHANT + ExpenseDB.TEXT_TYPE +" NOT NULL,"+
-                    ExpenseDB.COLUMN_NAME_AMOUNT + ExpenseDB.INTEGER_TYPE +" NOT NULL,"+
-                    ExpenseDB.COLUMN_NAME_DESCRIPTION + ExpenseDB.VARCHAR_TYPE +","+
-                    ExpenseDB.COLUMN_NAME_CATEGORY + ExpenseDB.TEXT_TYPE;
+            "CREATE TABLE IF NOT EXISTS " + SQLiteDBContract.ExpenseDB.TABLE_NAME + " (" +
+                    ExpenseDB.COLUMN_NAME_DATE +" "+ ExpenseDB.DATE_TYPE + " NOT NULL, "+
+                    ExpenseDB.COLUMN_NAME_MERCHANT +" "+ ExpenseDB.TEXT_TYPE +" NOT NULL, "+
+                    ExpenseDB.COLUMN_NAME_AMOUNT +" "+ ExpenseDB.INTEGER_TYPE +" NOT NULL, "+
+                    ExpenseDB.COLUMN_NAME_DESCRIPTION +" "+ ExpenseDB.VARCHAR_TYPE +", "+
+                    ExpenseDB.COLUMN_NAME_CATEGORY +" "+ ExpenseDB.TEXT_TYPE +")";
     public static final String SQL_DELETE_DB = "DELETE DATABASE ";
     public static final String SQL_DELETE_TABLE =
             "DROP TABLE IF EXISTS "+ ExpenseDB.TABLE_NAME;
