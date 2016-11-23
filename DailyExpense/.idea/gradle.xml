@@ -10,9 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/xuni.calendar" />
             <option value="$PROJECT_DIR$/xuni.calendar-4.0.20163.211" />
-            <option value="$PROJECT_DIR$/xuni.core" />
             <option value="$PROJECT_DIR$/xuni.core-4.0.20163.211" />
           </set>
         </option>
@@ -20,9 +18,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/xuni.calendar" />
             <option value="$PROJECT_DIR$/xuni.calendar-4.0.20163.211" />
-            <option value="$PROJECT_DIR$/xuni.core" />
             <option value="$PROJECT_DIR$/xuni.core-4.0.20163.211" />
           </set>
         </option>
