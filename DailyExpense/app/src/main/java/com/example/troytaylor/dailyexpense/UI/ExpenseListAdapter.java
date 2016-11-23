@@ -87,7 +87,10 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
     }
     @Override
     public int getItemCount(){
-        return expenses.size();
+        if(expenses != null){
+            return expenses.size();
+        }
+        return -1;
     }
 
 }

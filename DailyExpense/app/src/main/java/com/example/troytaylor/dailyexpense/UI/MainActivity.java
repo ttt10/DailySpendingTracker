@@ -111,6 +111,8 @@ public class MainActivity extends AppCompatActivity implements ExpenseListFragme
                 // delete from repository
                 MyApp.getServicesComponent().getRepository().removeExpense(expense);
 
+                // check if there are any other items to display (expenses .size != null/0
+
                 // Notify adapter update on UI thread
                 updateExpenseList();
                 MainActivity.this.runOnUiThread(run);

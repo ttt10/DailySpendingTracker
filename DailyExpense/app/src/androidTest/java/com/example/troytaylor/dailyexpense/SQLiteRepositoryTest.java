@@ -120,7 +120,7 @@ public class SQLiteRepositoryTest{
         Calendar today = Calendar.getInstance();
         assertEquals(2000, repository.getTotalMonthAmount(today), 0.001);
     }
-    
+
     @Test
     public void testGetSelectedDay() throws Exception {
         SQLiteRepository repository = new SQLiteRepository(context);
