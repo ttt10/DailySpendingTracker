@@ -25,7 +25,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
 
         public Expense expense;
         public View parent;
-        public TextView descriptionView;
+        public TextView merchantView;
         public TextView amountView;
         public ImageView editView;
         public ImageView clearView;
@@ -34,7 +34,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
         public ViewHolder(View view){
             super(view);
             this.parent = view;
-            this.descriptionView = (TextView) view.findViewById(R.id.description);
+            this.merchantView = (TextView) view.findViewById(R.id.merchant);
             this.amountView = (TextView) view.findViewById(R.id.amount);
             this.editView = (ImageView) view.findViewById(R.id.edit);
             this.clearView = (ImageView) view.findViewById(R.id.clear);
@@ -75,7 +75,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
     @Override
     public void onBindViewHolder(ViewHolder vh, int position){
         vh.expense = expenses.get(position);
-        vh.descriptionView.setText(expenses.get(position).getDescription());
+        vh.merchantView.setText(expenses.get(position).getMerchant());
         vh.parent.setTag(expenses.get(position)); // what does this do?
         vh.amountView.setText("$ "+Double.toString(expenses.get(position).getAmount()));
     }

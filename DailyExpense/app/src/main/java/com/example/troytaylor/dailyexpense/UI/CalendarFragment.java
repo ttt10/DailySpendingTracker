@@ -98,8 +98,14 @@ public class CalendarFragment extends Fragment {
                 cal.setTime(date.get(0));
 
                 repository.setSelectedDay(cal);
-                ((MainActivity) getActivity()).loadExpenseListFragment();
+                double amount = repository.getTotalDayAmount(repository.getSelectedDay());
 
+                if(amount == 0.0){
+                    ((MainActivity) getActivity()).loadEditExpenseFragment();
+                }
+                else {
+                    ((MainActivity) getActivity()).loadExpenseListFragment();
+                }
             }
         }, this);
 

@@ -14,11 +14,11 @@
         android:text="$ $ $"
         android:textSize="40dp"/>
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/merchant"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginLeft="5dp"
-        android:text="Description"
+        android:text="Merchant"
         android:textColor="@color/white"
         android:textSize="20dp"
         android:gravity="left"

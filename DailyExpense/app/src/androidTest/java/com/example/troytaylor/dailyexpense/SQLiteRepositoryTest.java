@@ -15,6 +15,7 @@ import org.junit.Test;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -26,11 +27,8 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class SQLiteRepositoryTest{
 
-    private final List<Expense> recordsAddedForTest = Arrays.asList(
-            new Expense(1, Calendar.getInstance(), "Components", 1000, Categories.MISCELLANEOUS, "Shit"),
-            new Expense(2, Calendar.getInstance(), "GrapeCity", 1000, Categories.MISCELLANEOUS, "Travel Expense")
-            //new Expense(2, Calendar.getInstance(), "ComponentOne", 1000, Categories.MISCELLANEOUS, "Travel Expense"),
-            );
+    // mock data
+    private List<Expense> testList;
 
     private static Context context;
 
@@ -38,20 +36,25 @@ public class SQLiteRepositoryTest{
     public void setUp() throws Exception {
 
         context = InstrumentationRegistry.getContext();
+        testList = Arrays.asList(
+                new Expense(1, Calendar.getInstance(), "GrapeCity", 1000, Categories.MISCELLANEOUS, "Travel Expense"),
+                new Expense(2, Calendar.getInstance(), "ComponentOne", 1000, Categories.MISCELLANEOUS, "Travel Expense"),
+                new Expense(0, Calendar.getInstance(), "GrapeCity", 1000, Categories.MISCELLANEOUS, "Travel Expense")
+        );
     }
 
     @Test
     public void testAddExpense() throws Exception {
         SQLiteRepository repository = new SQLiteRepository(context);
 
-        assertEquals(true, repository.addExpense(Calendar.getInstance(), "GrapeCity", 1000, "Travel Expense", Categories.MISCELLANEOUS));
+        assertEquals(true, repository.addExpense(Calendar.getInstance(), "ComponentOne", 1000, "Travel Expense", Categories.MISCELLANEOUS));
     }
 
     @Test
     public void testRemoveExpense() throws Exception {
         SQLiteRepository repository = new SQLiteRepository(context);
 
-        assertEquals(false, repository.removeExpense(new Expense(-1, Calendar.getInstance(), "GrapeCity", 1000, Categories.MISCELLANEOUS, "Travel Expense")));
+        assertEquals(true, repository.removeExpense(new Expense(2, Calendar.getInstance(), "ComponentOne", 1000, Categories.MISCELLANEOUS, "Travel Expense")));
     }
 
     @Test
@@ -59,8 +62,48 @@ public class SQLiteRepositoryTest{
         SQLiteRepository repository = new SQLiteRepository(context);
 
         // mock a list to compare to
-        List<Expense> list = repository.getExpenses(Calendar.getInstance());
-        assertEquals(recordsAddedForTest, list);
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        Date d = sdf.parse("2016.11.23");
+        c.setTime(d);
+        List <Expense> list = repository.getExpenses(c);
+        if(list == null){
+            assertEquals(true, false);
+        }
+        boolean flag = true;
+        int size = list.size();
+        for (int i=0; i<size; i++){
+            Expense test = testList.get(i);
+            Expense result = list.get(i);
+            if( test.getId() != result.getId() ){
+                flag = false;
+                break;
+            }
+            if( !sdf.format( test.getDate().getTime() ).equals( sdf.format( result.getDate().getTime() ) ) ){
+                flag = false;
+                break;
+            }
+            if( !test.getMerchant().equals( result.getMerchant() ) ){
+                flag = false;
+                break;
+            }
+            if( test.getAmount() != result.getAmount()){
+                flag = false;
+                break;
+            }
+            if( !test.getDescription().equals( result.getDescription() ) ){
+                flag = false;
+                break;
+            }
+            if( !test.getCategory().toString().equals( result.getCategory().toString() ) ){
+                flag = false;
+                break;
+            }
+
+        }
+
+
+        assertEquals(true, flag);
     }
 
     @Test
@@ -77,13 +120,7 @@ public class SQLiteRepositoryTest{
         Calendar today = Calendar.getInstance();
         assertEquals(2000, repository.getTotalMonthAmount(today), 0.001);
     }
-
-//    @Test
-//    public void testSetSelectedDay() throws Exception {
-//        SQLiteRepository repository = new SQLiteRepository(context);
-//
-//    }
-
+    
     @Test
     public void testGetSelectedDay() throws Exception {
         SQLiteRepository repository = new SQLiteRepository(context);

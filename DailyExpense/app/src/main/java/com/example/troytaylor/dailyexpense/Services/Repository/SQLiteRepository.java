@@ -40,12 +40,12 @@ public class SQLiteRepository implements IRepository {
         selectedDay = Calendar.getInstance();
     }
 
+    @Override
     public boolean addExpense(Calendar date, String merchant, double amount, String description, Categories category){
-        //TODO: return true when expense added to list
         Database = DBHelper.getWritableDatabase();
 
         //delete db
-        //Database.delete(SQLiteDBContract.ExpenseDB.TABLE_NAME,null,null);
+        //DBHelper.onUpgrade(Database, 1, 2);
         ContentValues contentValues = new ContentValues();
 
         //format date to "YYYY-MM-DD"
@@ -64,13 +64,14 @@ public class SQLiteRepository implements IRepository {
         else return true;
     }
 
+    @Override
     public boolean removeExpense(Expense e){
-        //TODO: return true when expense removed from list
         Database = DBHelper.getWritableDatabase();
 
-        String selection = SQLiteDBContract.ExpenseDB._ID + " = ?";
-        String[] selectionArgs = { String.valueOf(e.getId()) };
-        int result = Database.delete(SQLiteDBContract.ExpenseDB.TABLE_NAME, selection, selectionArgs);
+        String[] selectionArgs = new String [] {
+                String.valueOf(e.getId())
+        };
+        int result = Database.delete(SQLiteDBContract.ExpenseDB.TABLE_NAME, SQLiteDBContract.ExpenseDB._ID+" = ?", selectionArgs);
         Database.close();
 
         return result > 0;
@@ -82,11 +83,10 @@ public class SQLiteRepository implements IRepository {
         Database = DBHelper.getReadableDatabase();
 
         DateFormat format = new SimpleDateFormat("yyyy.MM.dd");
-        String day = format.format(selectedDay.getTime());
-        String [] projection = {
-                "*"
-        }; // columns from db
 
+        String day = format.format(selectedDay.getTime());
+
+        String [] projection = { "*" }; // columns from db
         String selection = SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE + " = ?";
         String[] selectionArgs = { day };
 
@@ -107,15 +107,14 @@ public class SQLiteRepository implements IRepository {
             c.moveToFirst();
             expenseList = new ArrayList<>();
             for(int i=0; i<count; i++) {
-                long id = c.getLong(c.getColumnIndex("_id"));
+                long id = c.getLong(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB._ID));
 
                 String dateString = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE));
                 // convert date string to Calendar object
                 Calendar date = Calendar.getInstance();
-                DateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
                 Date d = null;
                 try {
-                    d = formatter.parse(dateString);
+                    d = format.parse(dateString);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

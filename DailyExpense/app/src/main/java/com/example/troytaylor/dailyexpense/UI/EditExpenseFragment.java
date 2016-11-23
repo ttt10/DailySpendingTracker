@@ -64,11 +64,7 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.edit_expense_fragment, container, false);
-        if(expense != null) {
-            ((EditText) view.findViewById(R.id.edit_merchant)).setText(this.expense.getMerchant());
-            ((EditText) view.findViewById(R.id.edit_description)).setText(this.expense.getDescription());
-            ((EditText) view.findViewById(R.id.edit_amount)).setText("" + this.expense.getAmount());
-        }
+
         Button b = (Button) view.findViewById(R.id.save_button);
         b.setOnClickListener(this);
 
@@ -76,7 +72,14 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
         ArrayAdapter<Categories> adapter = new ArrayAdapter<>(this.getContext(), R.layout.spinner_item, Categories.values());
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setSelection(adapter.getPosition(expense.getCategory()));
+
+        if(expense != null) {
+            ((EditText) view.findViewById(R.id.edit_merchant)).setText(this.expense.getMerchant());
+            ((EditText) view.findViewById(R.id.edit_description)).setText(this.expense.getDescription());
+            ((EditText) view.findViewById(R.id.edit_amount)).setText("" + this.expense.getAmount());
+            spinner.setSelection(adapter.getPosition(expense.getCategory()));
+        }
+
         // if a datepicker view is available, gives user option to change date
         // Calendar dayToEdit = MyApp.getServicesComponent().getRepository().getSelectedDay();
 
@@ -113,13 +116,13 @@ public class EditExpenseFragment extends Fragment implements View.OnClickListene
         // get the expense object data from the views
         Calendar date = MyApp.getServicesComponent().getRepository().getSelectedDay();
 
-        //TODO: add merchant UI, replace desc
         EditText merchant_view = (EditText) this.getActivity().findViewById(R.id.edit_merchant);
         String merchant = merchant_view.getText().toString();
 
         EditText desc_view = (EditText) this.getActivity().findViewById(R.id.edit_description);
         String description = desc_view.getText().toString();
 
+        //TODO: validate amount input
         EditText amount_view = (EditText) this.getActivity().findViewById(R.id.edit_amount);
         double amount = Double.parseDouble(amount_view.getText().toString());
 
