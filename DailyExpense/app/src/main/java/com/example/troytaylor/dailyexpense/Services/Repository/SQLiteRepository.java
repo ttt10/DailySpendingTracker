@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 
 import com.example.troytaylor.dailyexpense.Constants.Categories;
 import com.example.troytaylor.dailyexpense.Services.Repository.Data.Entities.Expense;
@@ -36,15 +37,15 @@ public class SQLiteRepository implements IRepository {
 
         DBHelper = SQLiteDBHelper.getInstance(context);
 
-        //TODO: set selectedDay to today on start
         selectedDay = Calendar.getInstance();
-
     }
 
     public boolean addExpense(Calendar date, String merchant, double amount, String description, Categories category){
         //TODO: return true when expense added to list
         Database = DBHelper.getWritableDatabase();
 
+        //delete db
+        //Database.delete(SQLiteDBContract.ExpenseDB.TABLE_NAME,null,null);
         ContentValues contentValues = new ContentValues();
 
         //format date to "YYYY-MM-DD"
@@ -80,17 +81,15 @@ public class SQLiteRepository implements IRepository {
         List<Expense> expenseList = null;
         Database = DBHelper.getReadableDatabase();
 
+        DateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+        String day = format.format(selectedDay.getTime());
         String [] projection = {
-                SQLiteDBContract.ExpenseDB._ID,
-                SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE,
-                SQLiteDBContract.ExpenseDB.COLUMN_NAME_MERCHANT,
-                SQLiteDBContract.ExpenseDB.COLUMN_NAME_AMOUNT,
-                SQLiteDBContract.ExpenseDB.COLUMN_NAME_DESCRIPTION,
-                SQLiteDBContract.ExpenseDB.COLUMN_NAME_CATEGORY
+                "*"
         }; // columns from db
 
         String selection = SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE + " = ?";
-        String[] selectionArgs = { selectedDay.toString() };
+        String[] selectionArgs = { day };
+
 
         Cursor c = Database.query(
                 SQLiteDBContract.ExpenseDB.TABLE_NAME,
@@ -104,32 +103,35 @@ public class SQLiteRepository implements IRepository {
 
         // add result to expenseList
         int count = c.getCount();
-        c.moveToFirst();
-        for(int i=0; i<count; i++) {
-            long id = c.getLong(c.getColumnIndex(SQLiteDBContract.ExpenseDB._ID));
+        if(count > 0) {
+            c.moveToFirst();
+            expenseList = new ArrayList<>();
+            for(int i=0; i<count; i++) {
+                long id = c.getLong(c.getColumnIndex("_id"));
 
-            String dateString = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE));
-            // convert date string to Calendar object
-            Calendar date = Calendar.getInstance();
-            DateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
-            Date d = null;
-            try {
-                d = formatter.parse(dateString);
-            } catch (ParseException e) {
-                e.printStackTrace();
+                String dateString = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE));
+                // convert date string to Calendar object
+                Calendar date = Calendar.getInstance();
+                DateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+                Date d = null;
+                try {
+                    d = formatter.parse(dateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                date.setTime(d);
+
+                String merchant = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_MERCHANT));;
+                double amount = c.getDouble(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_AMOUNT));;
+                String description = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_DESCRIPTION));;
+
+                String ctg = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_CATEGORY));
+                Categories category = Categories.valueOf(ctg);
+
+                // add to expenseList
+                expenseList.add(new Expense(id, date, merchant, amount, category, description));
+                c.moveToNext(); // move cursor to next row
             }
-            date.setTime(d);
-
-            String merchant = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_MERCHANT));;
-            double amount = c.getDouble(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_AMOUNT));;
-            String description = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_DESCRIPTION));;
-
-            String ctg = c.getString(c.getColumnIndexOrThrow(SQLiteDBContract.ExpenseDB.COLUMN_NAME_CATEGORY));
-            Categories category = Categories.valueOf(ctg);
-
-            // add to expenseList
-            expenseList.add(new Expense(id, date, merchant, amount, category, description));
-            c.moveToNext(); // move cursor to next row
         }
 
         Database.close();
@@ -167,16 +169,17 @@ public class SQLiteRepository implements IRepository {
 
         int daysInMonth = month.getMaximum(Calendar.DAY_OF_MONTH);
         Calendar cal = Calendar.getInstance();
+
         cal.set(Calendar.DAY_OF_MONTH, 1);
-        startDay = format.format(cal);
-        cal.set(Calendar.DAY_OF_MONTH, daysInMonth);
-        endDay = format.format(cal);
+        startDay = format.format(cal.getTime());
+        cal.set(Calendar.DAY_OF_MONTH, daysInMonth-1);
+        endDay = format.format(cal.getTime());
 
         System.out.println("start day: "+startDay);
         System.out.println("end day: "+endDay);
 
         String[] selectionArgs = { startDay, endDay }; // arguments for selection filter
-        String sql = "SELECT SUM(amount) FROM " + SQLiteDBContract.ExpenseDB.TABLE_NAME+" WHERE "+ SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE+" BETWEEN "+startDay+" AND "+endDay;
+        String sql = "SELECT SUM(amount) FROM " + SQLiteDBContract.ExpenseDB.TABLE_NAME+" WHERE "+ SQLiteDBContract.ExpenseDB.COLUMN_NAME_DATE+" BETWEEN ? and ?";//\""+startDay+"\" AND \""+endDay+"\"";
 
         Cursor cursor = Database.rawQuery(sql, selectionArgs);
 

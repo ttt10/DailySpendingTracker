@@ -5,7 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/DailyExpense.iml" filepath="$PROJECT_DIR$/DailyExpense.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/xuni.calendar/xuni.calendar.iml" filepath="$PROJECT_DIR$/xuni.calendar/xuni.calendar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xuni.calendar-4.0.20163.211/xuni.calendar-4.0.20163.211.iml" filepath="$PROJECT_DIR$/xuni.calendar-4.0.20163.211/xuni.calendar-4.0.20163.211.iml" />
       <module fileurl="file://$PROJECT_DIR$/xuni.core/xuni.core.iml" filepath="$PROJECT_DIR$/xuni.core/xuni.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xuni.core-4.0.20163.211/xuni.core-4.0.20163.211.iml" filepath="$PROJECT_DIR$/xuni.core-4.0.20163.211/xuni.core-4.0.20163.211.iml" />
     </modules>
   </component>
 </project>

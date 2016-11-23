@@ -12,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -23,6 +25,12 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 public class SQLiteRepositoryTest{
+
+    private final List<Expense> recordsAddedForTest = Arrays.asList(
+            new Expense(1, Calendar.getInstance(), "Components", 1000, Categories.MISCELLANEOUS, "Shit"),
+            new Expense(2, Calendar.getInstance(), "GrapeCity", 1000, Categories.MISCELLANEOUS, "Travel Expense")
+            //new Expense(2, Calendar.getInstance(), "ComponentOne", 1000, Categories.MISCELLANEOUS, "Travel Expense"),
+            );
 
     private static Context context;
 
@@ -52,21 +60,22 @@ public class SQLiteRepositoryTest{
 
         // mock a list to compare to
         List<Expense> list = repository.getExpenses(Calendar.getInstance());
-        assertEquals(null, list);
+        assertEquals(recordsAddedForTest, list);
     }
 
     @Test
     public void testGetTotalDayAmount() throws Exception {
         SQLiteRepository repository = new SQLiteRepository(context);
 
-        assertEquals(0.0, repository.getTotalDayAmount(Calendar.getInstance()), 0.001);
+        assertEquals(2000, repository.getTotalDayAmount(Calendar.getInstance()), 0.001);
     }
 
     @Test
     public void testGetTotalMonthAmount() throws Exception {
         SQLiteRepository repository = new SQLiteRepository(context);
 
-        assertEquals(0.0, repository.getTotalMonthAmount(Calendar.getInstance()), 0.001);
+        Calendar today = Calendar.getInstance();
+        assertEquals(2000, repository.getTotalMonthAmount(today), 0.001);
     }
 
 //    @Test
@@ -79,8 +88,11 @@ public class SQLiteRepositoryTest{
     public void testGetSelectedDay() throws Exception {
         SQLiteRepository repository = new SQLiteRepository(context);
 
-        Calendar today = Calendar.getInstance();
-        int s = today.get(Calendar.DATE);
-        assertEquals(s, repository.getSelectedDay());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+        Calendar select = repository.getSelectedDay();
+        String selectedDay = format.format(select.getTime());
+        Calendar cal = Calendar.getInstance();
+        String day = format.format(cal.getTime());
+        assertEquals(day, selectedDay);
     }
 }

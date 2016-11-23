@@ -45,7 +45,7 @@ public class CalendarFragment extends Fragment {
         // get the calendar view object from the inflated layout
         calendar = (XuniCalendar) v.findViewById(R.id.calendar);
 
-        // manipulate the calendar
+        // manipulate the calendar layout
         calendar.setBackgroundColor(Color.BLACK);
         calendar.setTextColor(Color.WHITE);
         calendar.setHeaderBackgroundColor(Color.BLACK);
@@ -61,37 +61,23 @@ public class CalendarFragment extends Fragment {
                 CalendarDaySlotLoadingEventArgs args = (CalendarDaySlotLoadingEventArgs) o1;
                 Date date = args.getDate();
 
-                // get the current Day Slot to be loaded
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(date);
+
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                // define start and end day range of slots to load
-                Calendar start = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-                try {
-                    Date current = sdf.parse("2016.01.12");
-                    start.setTime(current);
-                }catch(ParseException pe){
-                    System.out.println(pe.toString());
-                }
+                double totalDayAmount = repository.getTotalDayAmount(cal);
 
-                Calendar today = Calendar.getInstance();
-                //TODO: set day format only if there exists 1+ expense(s) for that day
-                // find dates within range and display in Detail Day Slot
-                if(cal.compareTo(start) >= 0){
-                    if(cal.compareTo(today) <= 0){
-
-                        CalendarDetailDaySlot view = new CalendarDetailDaySlot(context);
-                        view.setDayText(String.valueOf(day));
-                        view.setDayTextColor(Color.LTGRAY);
-                        view.setDetailText("$ "+repository.getTotalDayAmount(cal));
-                        view.setDetailFontSize(12);
-                        view.setDetailTextColor(Color.GREEN);
-                        args.setDaySlot(view);
-                    }
+                if (totalDayAmount > 0.0) {
+                    CalendarDetailDaySlot view = new CalendarDetailDaySlot(context);
+                    view.setDayText(String.valueOf(day));
+                    view.setDayTextColor(Color.LTGRAY);
+                    view.setDetailText("$ "+totalDayAmount);
+                    view.setDetailFontSize(12);
+                    view.setDetailTextColor(Color.GREEN);
+                    args.setDaySlot(view);
                 }
-                else{
+                else {
                     CalendarDetailDaySlot view = new CalendarDetailDaySlot(context);
                     view.setDayText(String.valueOf(day));
                     view.setDayTextColor(Color.LTGRAY);
@@ -101,7 +87,7 @@ public class CalendarFragment extends Fragment {
             }
         }, this);
 
-        //TODO: add handler to CalendarSelectionChangedEvent that opens the ExpenseListFragment
+        // open the ExpenseListFragment
         calendar.getSelectionChanged().addHandler(new IEventHandler() {
             @Override
             public void call(Object o, Object o1){
