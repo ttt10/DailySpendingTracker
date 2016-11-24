@@ -23,7 +23,8 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by troytaylor on 4/28/16.
+ *      ExpenseListFragment
+ *          - Fragment with a RecyclerView to view scrollable list of expenses
  */
 public class ExpenseListFragment extends Fragment implements ExpenseListAdapter.ViewHolder.RecycleItemClicks /* OnTaskCompleted<List<Expense>> */{
     private RecyclerView recyclerView;

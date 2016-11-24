@@ -14,7 +14,9 @@ import com.example.troytaylor.dailyexpense.R;
 import java.util.List;
 
 /**
- * Created by troytaylor on 5/11/16.
+ *      ExpenseListAdapter class
+ *          - Adapter class for recycler view
+ *          - responsible for loading/binding data to view objects
  */
 public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.ViewHolder> {
 
@@ -80,11 +82,11 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
         vh.amountView.setText("$ "+Double.toString(expenses.get(position).getAmount()));
     }
 
-    public void setDayExpenseList(List<Expense> list){
-        this.expenses = list;
-
-        notifyDataSetChanged(); // refresh recycler view
-    }
+//    public void setDayExpenseList(List<Expense> list){
+//        this.expenses = list;
+//
+//        notifyDataSetChanged(); // refresh recycler view
+//    }
     @Override
     public int getItemCount(){
         if(expenses != null){

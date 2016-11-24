@@ -10,7 +10,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:dropDownSelector="@android:color/white"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/black"
         android:layout_margin="5dp"
         android:textAlignment="center"
         android:spinnerMode="dropdown" />
@@ -63,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:backgroundTint="@android:color/darker_gray"
+        android:backgroundTint="@android:color/holo_red_light"
         android:textAlignment="center"
         android:text="Save"
         android:id="@+id/save_button"

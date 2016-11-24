@@ -31,7 +31,6 @@ dependencies {
 
     // JUnit
     testCompile 'junit:junit:4.12'
-    androidTestCompile 'junit:junit:4.12'
 
     androidTestCompile 'com.android.support.test:runner:0.4'
     // Set this dependency to use JUnit 4 rules

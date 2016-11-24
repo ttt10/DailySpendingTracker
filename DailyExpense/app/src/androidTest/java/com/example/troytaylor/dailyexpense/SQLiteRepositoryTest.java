@@ -79,30 +79,7 @@ public class SQLiteRepositoryTest{
                 flag = false;
                 break;
             }
-            if( !sdf.format( test.getDate().getTime() ).equals( sdf.format( result.getDate().getTime() ) ) ){
-                flag = false;
-                break;
-            }
-            if( !test.getMerchant().equals( result.getMerchant() ) ){
-                flag = false;
-                break;
-            }
-            if( test.getAmount() != result.getAmount()){
-                flag = false;
-                break;
-            }
-            if( !test.getDescription().equals( result.getDescription() ) ){
-                flag = false;
-                break;
-            }
-            if( !test.getCategory().toString().equals( result.getCategory().toString() ) ){
-                flag = false;
-                break;
-            }
-
         }
-
-
         assertEquals(true, flag);
     }
 
