@@ -1,1 +1,2 @@
-include ':app', ':xuni.calendar-4.0.20163.211', ':xuni.core-4.0.20163.211'
+include ':app', ':xuni.core-4.0.20163.211', ':xuni.calendar-4.0.20163.211'
+//include ':app', ':xuni.core-4.0.20163.211:xuni.core-4.0.20163.211', ':xuni.calendar-4.0.20163.211:xuni.calendar-4.0.20163.211'

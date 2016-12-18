@@ -8,7 +8,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.runner.RunWith;
+//import org.junit.runner.RunWith;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,13 +18,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 
 /**
  *      SQLiteRepositoryTest
  *          - Unit tests for SQLiteRepository class
  */
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 public class SQLiteRepositoryTest{
 
     // mock data

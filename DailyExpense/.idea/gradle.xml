@@ -14,14 +14,7 @@
             <option value="$PROJECT_DIR$/xuni.core-4.0.20163.211" />
           </set>
         </option>
-        <option name="myModules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/xuni.calendar-4.0.20163.211" />
-            <option value="$PROJECT_DIR$/xuni.core-4.0.20163.211" />
-          </set>
-        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
