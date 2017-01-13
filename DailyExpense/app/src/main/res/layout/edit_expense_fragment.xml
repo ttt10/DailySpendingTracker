@@ -10,64 +10,72 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="@string/create_new_expense"
-        android:textColor="@android:color/holo_green_light"
-        android:layout_margin="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/create_new_expense"
+            android:textColor="@android:color/holo_orange_light"
+            android:textCursorDrawable="@null"
+            android:layout_margin="5dp"/>
 
 
-    <EditText
-        android:id="@+id/edit_merchant"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:hint="Enter Merchant Name..."
-        android:textColorHint="@color/white"
-        android:layout_margin="5dp"/>
-    <EditText
-        android:id="@+id/edit_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:hint="Enter Description..."
-        android:textColorHint="@color/white"
-        android:layout_margin="5dp"/>
 
-    <EditText
-        android:id="@+id/edit_amount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:hint="Enter Amount..."
-        android:textColorHint="@color/white"
-        android:layout_margin="5dp"/>
+        <EditText
+            android:id="@+id/edit_merchant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:hint="Enter Merchant Name..."
+            android:textColorHint="@android:color/darker_gray"
+            android:textCursorDrawable="@null"
+            android:layout_margin="5dp"/>
+        <EditText
+            android:id="@+id/edit_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:hint="Enter Description..."
+            android:textColorHint="@android:color/darker_gray"
+            android:textCursorDrawable="@null"
+            android:layout_margin="5dp"/>
 
-    <Spinner
-        android:id="@+id/edit_category_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:dropDownSelector="@android:color/white"
-        android:background="@android:color/black"
-        android:layout_margin="5dp"
-        android:textAlignment="center"
-        android:spinnerMode="dropdown" />
+        <EditText
+            android:id="@+id/edit_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:hint="Enter Amount..."
+            android:textColorHint="@android:color/darker_gray"
+            android:textCursorDrawable="@null"
+            android:layout_margin="5dp"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@android:color/holo_red_light"
-        android:textAlignment="center"
-        android:text="Save"
-        android:id="@+id/save_button"
-        android:onClick="onSaveButtonClick"
-        android:layout_gravity="center_horizontal" />
+        <Spinner
+            android:id="@+id/edit_category_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dropDownSelector="@android:color/white"
+            android:background="@android:color/black"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            android:spinnerMode="dropdown" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:textAlignment="center"
+            android:text="Save"
+            android:id="@+id/save_button"
+            android:onClick="onSaveButtonClick"
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 </RelativeLayout>

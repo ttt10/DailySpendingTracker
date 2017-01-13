@@ -11,6 +11,7 @@ Below are some of the things I learned about while creating this app:
 ###UI patterns
 - Object Pool pattern (RecyclerView)
 - Android Fragments and LifeCycle management
+- Animations
 
 ###Data Storage
 - SQLiteDatabases
